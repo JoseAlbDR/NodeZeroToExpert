@@ -6,8 +6,10 @@ const workCount = content.split(' ');
 
 console.log('Words:', workCount.length);
 
-const reactWords = workCount.filter((word) =>
+let reactWords = workCount.filter((word) =>
   word.toLowerCase().includes('react')
 );
 
-console.log('React:', reactWords.length);
+reactWords = content.match(/react/gi ?? []).length;
+
+console.log('React:', reactWords);
