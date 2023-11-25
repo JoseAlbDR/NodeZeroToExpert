@@ -3,9 +3,10 @@ const getPokemonById = (id) => {
 
   return fetch(`${url}/${id}`)
     .then((response) => response.json())
-    .then((pokemon) => pokemon.name)
-    .catch((err) => console.log(err))
-    .finally(() => console.log('All Done'));
+    .then(() => {
+      throw new Error('EEEERRRROOOOOORRRRR');
+    })
+    .then((pokemon) => pokemon.name);
 };
 
 module.exports = { getPokemonById };
