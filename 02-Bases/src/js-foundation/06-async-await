@@ -1,9 +1,9 @@
+const { httpClientPlugin } = require('../plugins/http-client.plugin');
+
 const getPokemonByIdAsync = async (id) => {
   const url = 'https://pokeapi.co/api/v2/pokemon';
 
-  const response = await fetch(`${url}/${id}`);
-
-  const pokemon = await response.json();
+  const pokemon = await httpClientPlugin.get(`${url}/${id}`);
 
   return pokemon.name;
 };
