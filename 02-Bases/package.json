@@ -20,5 +20,8 @@
   "homepage": "https://github.com/JoseAlbDR/NodeZeroToExpert#readme",
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.6.2"
   }
 }
