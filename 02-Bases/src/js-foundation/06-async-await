@@ -1,0 +1,11 @@
+const getPokemonByIdAsync = async (id) => {
+  const url = 'https://pokeapi.co/api/v2/pokemon';
+
+  const response = await fetch(`${url}/${id}`);
+
+  const pokemon = await response.json();
+
+  return pokemon.name;
+};
+
+module.exports = { getPokemonByIdAsync };
