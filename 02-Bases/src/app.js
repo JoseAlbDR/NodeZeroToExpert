@@ -2,7 +2,8 @@
 // console.log(emailTemplate);
 // require('./js-foundation/02-destructuring');
 // const { getUserById } = require('./js-foundation/03-callbacks');
-require('./js-foundation/04-factory');
+const { getUUID, getAge } = require('./plugins');
+const { buildMakePerson } = require('./js-foundation/04-factory');
 
 // const id = 1;
 
@@ -14,3 +15,11 @@ require('./js-foundation/04-factory');
 //     console.log(user, user2);
 //   });
 // });
+
+const obj = { name: 'John', birthdate: '02-07-1984' };
+
+const makePerson = buildMakePerson({ getUUID, getAge });
+
+const john = makePerson(obj);
+
+console.log(john);
