@@ -25,4 +25,4 @@
 // console.log(john);
 
 const { getPokemonById } = require('./js-foundation/05-promises');
-getPokemonById(1, (name) => console.log(name));
+getPokemonById(1).then((name) => console.log({ pokemon: name }));
