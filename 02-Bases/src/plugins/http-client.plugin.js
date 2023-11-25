@@ -1,10 +1,12 @@
 const { default: axios } = require('axios');
 
+axios.interceptors.response.use((response) => response.data);
+
 const httpClientPlugin = {
   get: async (url) => {
     // const response = await fetch(url);
     // const data = await response.json();
-    const { data } = await axios.get(url);
+    const data = await axios.get(url);
 
     return data;
   },
