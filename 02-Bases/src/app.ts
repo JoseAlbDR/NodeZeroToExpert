@@ -41,12 +41,13 @@
 
 // const { buildLogger } = require('./plugins');
 
-// const logger = buildLogger('app.js');
-
-// logger.log('Hello there');
-// logger.error('There was an error');
-
 // fs.readFile('./error.log', 'utf-8', (err, data) => {
 //   if (err) throw err;
 //   console.log(JSON.parse(data));
 // });
+
+import { buildLogger } from './plugins/logger.plugin';
+
+const logger = buildLogger('app.js');
+logger.log('Hello there');
+logger.error('There was an error');

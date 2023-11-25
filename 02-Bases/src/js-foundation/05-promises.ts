@@ -1,4 +1,8 @@
-const getPokemonById = (id) => {
+interface IPokemon {
+  name: string;
+}
+
+const getPokemonById = (id: number): Promise<string> => {
   const url = 'https://pokeapi.co/api/v2/pokemon';
 
   return fetch(`${url}/${id}`)
@@ -6,7 +10,7 @@ const getPokemonById = (id) => {
     .then(() => {
       throw new Error('EEEERRRROOOOOORRRRR');
     })
-    .then((pokemon) => pokemon.name);
+    .then((pokemon: IPokemon) => pokemon.name);
 };
 
 module.exports = { getPokemonById };

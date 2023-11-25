@@ -4,7 +4,7 @@ const { SHELL, HOMEBREW_PREFIX } = process.env;
 
 // console.table({ SHELL, HOMEBREW_PREFIX });
 
-const characters = ['Flash', 'Superman', 'Batman'];
+const characters: string[] = ['Flash', 'Superman', 'Batman'];
 
 const [, , batman] = characters;
 

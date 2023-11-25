@@ -1,4 +1,9 @@
-const users = [
+export interface IUser {
+  id: number;
+  name: string;
+}
+
+const users: IUser[] = [
   {
     id: 1,
     name: 'John Doe',
@@ -9,12 +14,11 @@ const users = [
   },
 ];
 
-const getUserById = (id, cb) => {
+export const getUserById = (
+  id: number,
+  cb: (error?: string | null, user?: IUser) => void
+) => {
   const user = users.find((user) => user.id === id);
 
   !user ? cb(`User not found with id ${id}`) : cb(null, user);
 };
-
-// console.log({ user: getUserById(1) });
-
-module.exports = { getUserById };
