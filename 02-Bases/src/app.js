@@ -33,7 +33,13 @@
 
 const { getPokemonByIdAsync } = require('./js-foundation/06-async-await');
 
-getPokemonByIdAsync(1)
-  .then((pokemon) => console.log({ pokemon }))
-  .catch((err) => console.log('There was an error:', err))
-  .finally(() => console.log('All Done'));
+// getPokemonByIdAsync(1)
+//   .then((pokemon) => console.log({ pokemon }))
+//   .catch((err) => console.log('There was an error:', err))
+//   .finally(() => console.log('All Done'));
+
+const { buildLogger } = require('./plugins');
+
+const logger = buildLogger('app.js');
+
+logger.log('Hola Mundo');
