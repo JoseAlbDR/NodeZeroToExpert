@@ -11,8 +11,8 @@ const users = [
 
 const getUserById = (id, cb) => {
   const user = users.find((user) => user.id === id);
-  if (!user) return cb(`User not found with id ${id}`);
-  return cb(null, user);
+
+  !user ? cb(`User not found with id ${id}`) : cb(null, user);
 };
 
 // console.log({ user: getUserById(1) });
