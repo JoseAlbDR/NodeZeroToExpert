@@ -31,20 +31,20 @@
 //   .catch((err) => console.log('There was an error:', err))
 //   .finally(() => console.log('All Done'));
 
-const { getPokemonByIdAsync } = require('./js-foundation/06-async-await');
-const fs = require('fs');
+// const { getPokemonByIdAsync } = require('./js-foundation/06-async-await');
+// const fs = require('fs');
 
 // getPokemonByIdAsync(1)
 //   .then((pokemon) => console.log({ pokemon }))
 //   .catch((err) => console.log('There was an error:', err))
 //   .finally(() => console.log('All Done'));
 
-const { buildLogger } = require('./plugins');
+// const { buildLogger } = require('./plugins');
 
-const logger = buildLogger('app.js');
+// const logger = buildLogger('app.js');
 
-logger.log('Hello there');
-logger.error('There was an error');
+// logger.log('Hello there');
+// logger.error('There was an error');
 
 // fs.readFile('./error.log', 'utf-8', (err, data) => {
 //   if (err) throw err;

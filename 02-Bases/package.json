@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
-    "start:dev": "nodemon src/app.js"
+    "start:dev": "nodemon src/app.js",
+    "dev": "nodemon",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -19,7 +22,11 @@
   },
   "homepage": "https://github.com/JoseAlbDR/NodeZeroToExpert#readme",
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "@types/node": "^20.10.0",
+    "nodemon": "^3.0.1",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
   },
   "dependencies": {
     "axios": "^1.6.2",
