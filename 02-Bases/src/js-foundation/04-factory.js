@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const getAge = require('get-age');
+const getAge = require('../public/get-age.plugin');
 
 const obj = { name: 'John', birthdate: '02-07-1984' };
 
