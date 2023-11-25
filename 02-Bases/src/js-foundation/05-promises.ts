@@ -2,7 +2,7 @@ interface IPokemon {
   name: string;
 }
 
-const getPokemonById = (id: number): Promise<string> => {
+export const getPokemonById = (id: number): Promise<string> => {
   const url = 'https://pokeapi.co/api/v2/pokemon';
 
   return fetch(`${url}/${id}`)
@@ -12,5 +12,3 @@ const getPokemonById = (id: number): Promise<string> => {
     })
     .then((pokemon: IPokemon) => pokemon.name);
 };
-
-module.exports = { getPokemonById };
