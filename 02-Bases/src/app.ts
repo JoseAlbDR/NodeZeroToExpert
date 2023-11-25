@@ -46,8 +46,8 @@
 //   console.log(JSON.parse(data));
 // });
 
-import { buildLogger } from './plugins/logger.plugin';
+// import { buildLogger } from './plugins/logger.plugin';
 
-const logger = buildLogger('app.js');
-logger.log('Hello there');
-logger.error('There was an error');
+// const logger = buildLogger('app.js');
+// logger.log('Hello there');
+// logger.error('There was an error');
