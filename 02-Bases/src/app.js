@@ -32,6 +32,7 @@
 //   .finally(() => console.log('All Done'));
 
 const { getPokemonByIdAsync } = require('./js-foundation/06-async-await');
+const fs = require('fs');
 
 // getPokemonByIdAsync(1)
 //   .then((pokemon) => console.log({ pokemon }))
@@ -42,4 +43,10 @@ const { buildLogger } = require('./plugins');
 
 const logger = buildLogger('app.js');
 
-logger.log('Hola Mundo');
+logger.log('Hello there');
+logger.error('There was an error');
+
+// fs.readFile('./error.log', 'utf-8', (err, data) => {
+//   if (err) throw err;
+//   console.log(JSON.parse(data));
+// });
