@@ -5,4 +5,4 @@ const emailTemplate = `
   </div>
 `;
 
-module.exports = emailTemplate;
+module.exports = { emailTemplate };
