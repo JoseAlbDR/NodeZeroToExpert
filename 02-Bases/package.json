@@ -1,0 +1,19 @@
+{
+  "name": "02-bases",
+  "version": "0.0.1",
+  "description": "node bases and js review",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoseAlbDR/NodeZeroToExpert.git"
+  },
+  "author": "J.Aberto Delgado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoseAlbDR/NodeZeroToExpert/issues"
+  },
+  "homepage": "https://github.com/JoseAlbDR/NodeZeroToExpert#readme"
+}
