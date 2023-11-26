@@ -1,16 +1,17 @@
 // import { describe, expect, it, test } from '@jest/globals';
-import '@types/jest';
+import 'jest';
+// import '@types/jest';
 
 describe('Test in the App File', () => {
-  test('should be true', () => {
+  test('should be 30', () => {
     // 1. Arrange
     const num1 = 10;
     const num2 = 20;
 
     // 2. Act
-    const result = num1 + num2;
+    const result = num1 + num2 + 5;
 
     // 3. Assert
-    expect(result).toBe(30);
+    expect(result).toBe(35);
   });
 });
