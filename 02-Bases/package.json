@@ -4,7 +4,9 @@
   "description": "node bases and js review",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "start:dev": "nodemon src/app.js",
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc",
