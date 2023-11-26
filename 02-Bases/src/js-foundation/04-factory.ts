@@ -5,7 +5,7 @@ export const buildMakePerson =
     getUUID,
     getAge,
   }: {
-    getUUID: () => UUID;
+    getUUID: () => string;
     getAge: (birthdate: string) => number;
   }) =>
   ({ name, birthdate }: { name: string; birthdate: string }) => {
