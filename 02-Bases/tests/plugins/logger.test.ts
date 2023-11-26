@@ -31,4 +31,21 @@ describe('plugins/logger.plugin.ts', () => {
       })
     );
   });
+  test('logger.error should log a message', () => {
+    const winstonLoggerMock = jest.spyOn(logger, 'error');
+    const message = 'test message';
+    const service = 'test service';
+
+    const customLogger = buildLogger(service);
+
+    customLogger.error(message);
+
+    expect(winstonLoggerMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        level: 'error',
+        message,
+        service,
+      })
+    );
+  });
 });
