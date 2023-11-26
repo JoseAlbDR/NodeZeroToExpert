@@ -18,7 +18,7 @@ describe('js-foundation/05-promises.ts', () => {
     const pokeId = 1000000000;
 
     try {
-      const pokeName = await getPokemonByIdAsync(pokeId);
+      await getPokemonByIdAsync(pokeId);
       expect(true).toBe(false);
     } catch (error) {
       expect(error).toBe(`Pokemon not found with id ${pokeId}`);
