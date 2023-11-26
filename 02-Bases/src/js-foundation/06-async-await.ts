@@ -1,4 +1,4 @@
-const { http } = require('../plugins');
+import { http } from '../plugins';
 
 interface IPokemon {
   name: string;
@@ -7,7 +7,10 @@ interface IPokemon {
 export const getPokemonByIdAsync = async (id: number): Promise<string> => {
   const url = 'https://pokeapi.co/api/v2/pokemon';
 
-  const pokemon: IPokemon = await http.get(`${url}/${id}`);
-
-  return pokemon.name;
+  try {
+    const pokemon: IPokemon = await http.get<IPokemon>(`${url}/${id}`);
+    return pokemon.name;
+  } catch (error) {
+    throw `Pokemon not found with id ${id}`;
+  }
 };
