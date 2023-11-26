@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 export const httpClientPlugin = {
-  get: async (url: string) => {
+  get: async <T>(url: string): Promise<T> => {
     // const response = await fetch(url);
     // const data = await response.json();
-    const { data } = await axios.get(url);
+    const response: AxiosResponse<T> = await axios.get<T>(url);
 
-    return data;
+    return response.data;
   },
   // post: async (url, data) => {},
   // put: async (url, data) => {},
