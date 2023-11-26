@@ -1,6 +1,5 @@
 // import { describe, expect, it, test } from '@jest/globals';
 import 'jest';
-// import '@types/jest';
 
 describe('Test in the App File', () => {
   test('should be 30', () => {
@@ -9,9 +8,9 @@ describe('Test in the App File', () => {
     const num2 = 20;
 
     // 2. Act
-    const result = num1 + num2 + 5;
+    const result = num1 + num2;
 
     // 3. Assert
-    expect(result).toBe(35);
+    expect(result).toBe(30);
   });
 });

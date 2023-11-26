@@ -9,8 +9,8 @@
     "test:coverage": "jest --coverage",
     "start:dev": "nodemon src/app.js",
     "dev": "nodemon",
-    "build": "rimraf ./dist && tsc",
-    "start": "npm run build && node dist/app.js"
+    "build": "npm run test && rimraf ./dist && tsc",
+    "start": "node dist/app.js"
   },
   "repository": {
     "type": "git",
