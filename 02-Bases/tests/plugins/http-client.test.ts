@@ -32,6 +32,8 @@ describe('plugins/http-client.plugin.ts', () => {
   });
 
   test('http().post, .put, .delete should be functions throw an error', async () => {
+    expect(typeof http.get).toBe('function');
+
     expect(typeof http.post).toBe('function');
 
     expect(typeof http.put).toBe('function');
