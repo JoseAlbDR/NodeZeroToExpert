@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { yarg } from './config/plugins/yargs.plugin';
 
-console.log(yarg);
+// console.log(yarg);
 
 const arrayTabla = [];
 const base = yarg.b;
@@ -21,10 +21,12 @@ const header = `
 const output = header + arrayTabla.join('\n');
 const outputPath = 'outputs';
 
-if (yarg.s) console.log(output);
+yarg.s
+  ? console.log(output)
+  : console.log(`File ${outputPath}/tabla-${base}.txt created`);
 
 if (!fs.existsSync(path.join(outputPath))) {
   fs.mkdirSync(path.join(outputPath), { recursive: true });
 }
 
-fs.writeFileSync(`outputs/tabla-${base}.txt`, output);
+fs.writeFileSync(`${outputPath}/tabla-${base}.txt`, output);
