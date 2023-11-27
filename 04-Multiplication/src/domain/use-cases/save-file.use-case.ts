@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+
 export interface SaveFileUseCase {
   execute: (options: SaveFileOptions) => boolean;
 }
@@ -23,7 +24,7 @@ export class SaveFile implements SaveFileUseCase {
         fs.mkdirSync(path.join(destination), { recursive: true });
       }
       fs.writeFileSync(`${destination}/${fileName}`, fileContent);
-      console.log('File created!');
+
       return true;
     } catch (error) {
       console.error(error);
