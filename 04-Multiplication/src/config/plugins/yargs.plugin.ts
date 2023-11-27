@@ -14,4 +14,10 @@ export const yarg = yargs(hideBin(process.argv))
     default: 10,
     describe: 'Multiplication table limit',
   })
+  .option('s', {
+    alias: 'show',
+    type: 'boolean',
+    default: false,
+    describe: 'Show Multiplication table',
+  })
   .parseSync();
