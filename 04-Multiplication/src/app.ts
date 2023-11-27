@@ -6,4 +6,6 @@ import { yarg } from './config/plugins/yargs.plugin';
   await main();
 })();
 
-async function main() {}
+async function main() {
+  console.log(yarg);
+}
