@@ -4,7 +4,7 @@ import { yarg } from './config/plugins/yargs.plugin';
 
 // console.log(yarg);
 
-const { b: base, l: limit, s: show } = yarg;
+const { b: base, l: limit, s: showTable } = yarg;
 
 const arrayTabla = [];
 
@@ -22,7 +22,7 @@ const header = `
 const output = header + arrayTabla.join('\n');
 const outputPath = 'outputs';
 
-show
+showTable
   ? console.log(output)
   : console.log(`File ${outputPath}/tabla-${base}.txt created`);
 
