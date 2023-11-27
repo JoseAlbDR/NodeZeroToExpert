@@ -22,9 +22,8 @@ const header = `
 const output = header + arrayTabla.join('\n');
 const outputPath = 'outputs';
 
-showTable
-  ? console.log(output)
-  : console.log(`File ${outputPath}/tabla-${base}.txt created`);
+showTable && console.log(output);
+console.log(`File ${outputPath}/tabla-${base}.txt created`);
 
 if (!fs.existsSync(path.join(outputPath))) {
   fs.mkdirSync(path.join(outputPath), { recursive: true });
