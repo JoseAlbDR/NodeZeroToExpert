@@ -4,10 +4,11 @@ import { yarg } from './config/plugins/yargs.plugin';
 
 // console.log(yarg);
 
-const arrayTabla = [];
-const base = yarg.b;
+const { b: base, l: limit, s: show } = yarg;
 
-for (let index = 0; index < yarg.l; index++) {
+const arrayTabla = [];
+
+for (let index = 0; index < limit; index++) {
   const row = `${base} x ${index + 1} = ${base * (index + 1)}`;
   arrayTabla.push(row);
 }
@@ -21,7 +22,7 @@ const header = `
 const output = header + arrayTabla.join('\n');
 const outputPath = 'outputs';
 
-yarg.s
+show
   ? console.log(output)
   : console.log(`File ${outputPath}/tabla-${base}.txt created`);
 
