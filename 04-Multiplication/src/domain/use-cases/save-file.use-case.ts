@@ -23,7 +23,7 @@ export class SaveFile implements SaveFileUseCase {
       if (!fs.existsSync(path.join(fileDestination))) {
         fs.mkdirSync(path.join(fileDestination), { recursive: true });
       }
-      fs.writeFileSync(`${fileDestination}/${fileName}`, fileContent);
+      fs.writeFileSync(`${fileDestination}/${fileName}.txt`, fileContent);
 
       return true;
     } catch (error) {
