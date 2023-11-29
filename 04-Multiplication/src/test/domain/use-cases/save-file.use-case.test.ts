@@ -1,8 +1,18 @@
 import { SaveFile } from './../../../domain/use-cases/save-file.use-case';
 import fs from 'fs';
 describe('/domain/use-cases/save-file.use-case.ts', () => {
+  const customOptions = {
+    fileContent: 'test content',
+    fileName: 'test.txt',
+    fileDestination: 'testoutput',
+  };
+
+  const customFilePath = `${customOptions.fileDestination}/${customOptions.fileName}`;
+
   afterEach(() => {
     if (fs.existsSync('outputs')) fs.rmSync('outputs', { recursive: true });
+    if (fs.existsSync(customOptions.fileDestination))
+      fs.rmSync(customOptions.fileDestination, { recursive: true });
   });
 
   test('should save file with default values', () => {
@@ -25,20 +35,13 @@ describe('/domain/use-cases/save-file.use-case.ts', () => {
   });
 
   test('should save file with custom values', () => {
-    const options = {
-      fileContent: 'test content',
-      fileName: 'test.txt',
-      fileDestination: 'testoutput',
-    };
-
-    const filePath = `${options.fileDestination}/${options.fileName}`;
-
-    const result = new SaveFile().execute(options);
-    const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
-    const checkFile = fs.existsSync(filePath);
+    const result = new SaveFile().execute(customOptions);
+    const fileContent = fs.readFileSync(customFilePath, { encoding: 'utf8' });
+    console.log(fileContent);
+    const checkFile = fs.existsSync(customFilePath);
 
     expect(result).toBeTruthy();
-    expect(fileContent).toContain(options.fileContent);
+    expect(fileContent).toContain(customOptions.fileContent);
     expect(checkFile).toBeTruthy();
   });
 });
