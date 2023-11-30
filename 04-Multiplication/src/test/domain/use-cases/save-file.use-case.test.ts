@@ -44,4 +44,16 @@ describe('/domain/use-cases/save-file.use-case.ts', () => {
     expect(fileContent).toContain(customOptions.fileContent);
     expect(checkFile).toBeTruthy();
   });
+
+  test('should return false if directory could not be created', () => {
+    const saveFile = new SaveFile();
+    // Overwrite mkdir
+    const mkdirMock = jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {
+      throw new Error('Custom error message from testing');
+    });
+
+    const result = saveFile.execute(customOptions);
+
+    expect(result).toBe(false);
+  });
 });
