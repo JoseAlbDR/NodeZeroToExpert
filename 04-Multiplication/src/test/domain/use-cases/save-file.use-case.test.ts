@@ -49,7 +49,21 @@ describe('/domain/use-cases/save-file.use-case.ts', () => {
     const saveFile = new SaveFile();
     // Overwrite mkdir
     const mkdirMock = jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {
-      throw new Error('Custom error message from testing');
+      throw new Error('Custom folder error message from testing');
+    });
+
+    const result = saveFile.execute(customOptions);
+
+    expect(result).toBe(false);
+
+    mkdirMock.mockRestore();
+  });
+
+  test('should return false if file could not be created', () => {
+    const saveFile = new SaveFile();
+    // Overwrite mkdir
+    const mkdirMock = jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {
+      throw new Error('Custom file error message from testing');
     });
 
     const result = saveFile.execute(customOptions);
