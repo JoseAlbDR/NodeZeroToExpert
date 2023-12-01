@@ -6,8 +6,8 @@ export enum LogSeverityLevel {
 
 export class LogEntity {
   constructor(
-    public level: LogSeverityLevel,
     public message: string,
+    public level: LogSeverityLevel,
     public createdAt?: Date
   ) {
     this.createdAt = new Date();
