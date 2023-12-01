@@ -7,6 +7,7 @@ export class Server {
 
     CronService.createJob('*/5 * * * * *', () => {
       new CheckService().execute('https://google.com');
+      // new CheckService().execute('http://localhost:3000');
     });
   }
 }
