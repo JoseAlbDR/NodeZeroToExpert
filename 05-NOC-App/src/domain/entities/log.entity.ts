@@ -4,12 +4,24 @@ export enum LogSeverityLevel {
   high = 'high',
 }
 
-export class LogEntity {
-  constructor(
-    public message: string,
+export interface LogEntityOptions{
+   public message: string,
     public level: LogSeverityLevel,
+    public origin: string,
     public createdAt?: Date
+}
+
+export class LogEntity {
+   public message: string,
+    public level: LogSeverityLevel,
+    public origin: string,
+    public createdAt?: Date
+  constructor(
+   options: LogEntityOptions
   ) {
+    this.message = options.message,
+    this.level = options.level
+    this.origin = options.origin
     this.createdAt = new Date();
   }
 
