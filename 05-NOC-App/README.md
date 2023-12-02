@@ -11,3 +11,9 @@ MAILER_SECRET_KEY=
 
 PROD=false
 ```
+
+3 Install dependencies
+
+```
+  npm i
+```
