@@ -50,13 +50,14 @@ export class Server {
     //     (error) => console.log(error)
     //   ).execute(url);
     // });
-    CronService.createJob('*/5 * * * * *', () => {
-      const url = 'https://google.com';
-      new CheckServiceMultiple(
-        [fileSystemLogRepository, mongoLogRepository, postgreLogRepository],
-        () => console.log(`${url} is ok`),
-        (error) => console.log(error)
-      ).execute(url);
-    });
+
+    // CronService.createJob('*/5 * * * * *', () => {
+    //   const url = 'https://google.com';
+    //   new CheckServiceMultiple(
+    //     [fileSystemLogRepository, mongoLogRepository, postgreLogRepository],
+    //     () => console.log(`${url} is ok`),
+    //     (error) => console.log(error)
+    //   ).execute(url);
+    // });
   }
 }

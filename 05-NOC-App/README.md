@@ -23,3 +23,21 @@ MONGO_PASS=123456
 ```
   npm i
 ```
+
+4 Raise BD with
+
+```
+  docker compose up -d
+```
+
+5 Generate prisma
+
+```
+  npx prisma migrate dev
+```
+
+6 Run in development mode
+
+```
+  npm run dev
+```
