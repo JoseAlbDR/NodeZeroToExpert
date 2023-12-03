@@ -4,10 +4,10 @@ import { CronService } from './cron/cron-service';
 import { CheckService } from '../domain/use-cases/checks/check-service';
 import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
+import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 
-const fileSystemLogRepository = new LogRepositoryImpl(
-  new FileSystemDatasource()
-);
+const logRepository = new LogRepositoryImpl(new FileSystemDatasource());
+// const logRepository = new LogRepositoryImpl(new MongoLogDataSource());
 const emailService = new EmailService();
 
 export class Server {
@@ -32,13 +32,12 @@ export class Server {
     // );
 
     // CronService.createJob('*/5 * * * * *', () => {
-    //   const url = 'http://localhost:3000';
+    //   const url = 'https://googlezz.com';
     //   new CheckService(
-    //     fileSystemLogRepository,
+    //     logRepository,
     //     () => console.log(`${url} is ok`),
     //     (error) => console.log(error)
     //   ).execute(url);
-    //   // new CheckService().execute('http://localhost:3000');
     // });
   }
 }
