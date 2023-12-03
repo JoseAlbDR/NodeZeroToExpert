@@ -5,9 +5,11 @@ import { CheckService } from '../domain/use-cases/checks/check-service';
 import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
+import { PostgreSQLLogDatasource } from '../infrastructure/datasources/postgresql-log.datasource';
 
-const logRepository = new LogRepositoryImpl(new FileSystemDatasource());
+// const logRepository = new LogRepositoryImpl(new FileSystemDatasource());
 // const logRepository = new LogRepositoryImpl(new MongoLogDataSource());
+const logRepository = new LogRepositoryImpl(new PostgreSQLLogDatasource());
 const emailService = new EmailService();
 
 export class Server {
@@ -31,13 +33,13 @@ export class Server {
     //   'yusepah@gmail.com'
     // );
 
-    // CronService.createJob('*/5 * * * * *', () => {
-    //   const url = 'https://googlezz.com';
-    //   new CheckService(
-    //     logRepository,
-    //     () => console.log(`${url} is ok`),
-    //     (error) => console.log(error)
-    //   ).execute(url);
-    // });
+    CronService.createJob('*/5 * * * * *', () => {
+      const url = 'https://googledddx.com';
+      new CheckService(
+        logRepository,
+        () => console.log(`${url} is ok`),
+        (error) => console.log(error)
+      ).execute(url);
+    });
   }
 }
