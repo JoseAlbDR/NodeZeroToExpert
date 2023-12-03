@@ -1,7 +1,7 @@
-node_modules
-dist
-logs
+node_modules/
+dist/
+logs/
 .env
 
-mongo
-postgres
+mongo/
+postgres/
