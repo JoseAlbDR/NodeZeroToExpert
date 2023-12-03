@@ -7,10 +7,15 @@ import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { PostgreSQLLogDatasource } from '../infrastructure/datasources/postgresql-log.datasource';
 import { LogSeverityLevel } from '../domain/entities/log.entity';
+import { CheckServiceMultiple } from '../domain/use-cases/checks/check-service-multiple';
 
-// const logRepository = new LogRepositoryImpl(new FileSystemDatasource());
-// const logRepository = new LogRepositoryImpl(new MongoLogDataSource());
-const logRepository = new LogRepositoryImpl(new PostgreSQLLogDatasource());
+const fileSystemLogRepository = new LogRepositoryImpl(
+  new FileSystemDatasource()
+);
+const mongoLogRepository = new LogRepositoryImpl(new MongoLogDataSource());
+const postgreLogRepository = new LogRepositoryImpl(
+  new PostgreSQLLogDatasource()
+);
 const emailService = new EmailService();
 
 export class Server {
@@ -45,5 +50,13 @@ export class Server {
     //     (error) => console.log(error)
     //   ).execute(url);
     // });
+    CronService.createJob('*/5 * * * * *', () => {
+      const url = 'https://google.com';
+      new CheckServiceMultiple(
+        [fileSystemLogRepository, mongoLogRepository, postgreLogRepository],
+        () => console.log(`${url} is ok`),
+        (error) => console.log(error)
+      ).execute(url);
+    });
   }
 }
