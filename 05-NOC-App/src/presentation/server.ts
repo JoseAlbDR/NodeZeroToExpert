@@ -6,6 +6,7 @@ import { EmailService } from './email/email.service';
 import { SendEmailLogs } from '../domain/use-cases/email/send-email-logs';
 import { MongoLogDataSource } from '../infrastructure/datasources/mongo-log.datasource';
 import { PostgreSQLLogDatasource } from '../infrastructure/datasources/postgresql-log.datasource';
+import { LogSeverityLevel } from '../domain/entities/log.entity';
 
 // const logRepository = new LogRepositoryImpl(new FileSystemDatasource());
 // const logRepository = new LogRepositoryImpl(new MongoLogDataSource());
@@ -15,6 +16,9 @@ const emailService = new EmailService();
 export class Server {
   public static start() {
     console.log('Server started...');
+
+    // const logs = await logRepository.getLogs(LogSeverityLevel.high);
+    // console.log(logs);
 
     //Mandar email
     // const emailService = new EmailService();
@@ -33,13 +37,13 @@ export class Server {
     //   'yusepah@gmail.com'
     // );
 
-    CronService.createJob('*/5 * * * * *', () => {
-      const url = 'https://googledddx.com';
-      new CheckService(
-        logRepository,
-        () => console.log(`${url} is ok`),
-        (error) => console.log(error)
-      ).execute(url);
-    });
+    // CronService.createJob('*/5 * * * * *', () => {
+    //   const url = 'https://googledddx.com';
+    //   new CheckService(
+    //     logRepository,
+    //     () => console.log(`${url} is ok`),
+    //     (error) => console.log(error)
+    //   ).execute(url);
+    // });
   }
 }
