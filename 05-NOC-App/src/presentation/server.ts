@@ -27,9 +27,9 @@ export class Server {
 
     // Mandar mail con system logs
     // emailService.sendEmailWithFileSystemLogs('yusepah@gmail.com');
-    new SendEmailLogs(emailService, fileSystemLogRepository).execute(
-      'yusepah@gmail.com'
-    );
+    // new SendEmailLogs(emailService, fileSystemLogRepository).execute(
+    //   'yusepah@gmail.com'
+    // );
 
     // CronService.createJob('*/5 * * * * *', () => {
     //   const url = 'http://localhost:3000';

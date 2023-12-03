@@ -11,6 +11,11 @@ MAILER_EMAIL=
 MAILER_SECRET_KEY=
 
 PROD=false
+
+MONGO_URL=mongodb://jadero:123456@localhost:27017/
+MONGO_DB_NAME=NOC
+MONGO_USER=jadero
+MONGO_PASS=123456
 ```
 
 3 Install dependencies
