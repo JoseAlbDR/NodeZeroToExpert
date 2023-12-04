@@ -23,7 +23,7 @@ export class Server {
     this.app.use(express.static(this.publicPath));
 
     this.app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../../public/index.html'));
+      res.sendFile(path.join(__dirname, `../../${this.publicPath}/index.html`));
     });
 
     this.app.listen(this.port, () => {
