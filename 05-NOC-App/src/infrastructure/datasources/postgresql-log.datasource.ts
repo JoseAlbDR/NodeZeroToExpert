@@ -12,6 +12,10 @@ export class PostgreSQLLogDatasource implements LogDatasource {
     return severityLevel;
   }
 
+  public __test__ = {
+    getSeverityLevel: this.getSeverityLevel,
+  };
+
   async saveLog(log: LogEntity): Promise<void> {
     const newLog = await this.prisma.logModel.create({
       data: {
