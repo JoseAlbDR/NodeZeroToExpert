@@ -16,9 +16,19 @@ const server = http.createServer((req, res) => {
     const htmlFile = fs.readFileSync('./public/index.html', 'utf8');
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.end(htmlFile);
-  } else {
-    res.writeHead(404, { 'Content-Type': 'text/html' });
-    res.end();
+    return;
+  }
+
+  if (req.url === '/css/styles.css') {
+    const cssFile = fs.readFileSync('./public/css/styles.css', 'utf8');
+    res.writeHead(200, { 'Content-Type': 'text/css' });
+    res.end(cssFile);
+  }
+
+  if (req.url === '/js/app.js') {
+    const jsFile = fs.readFileSync('./public/js/app.js', 'utf8');
+    res.writeHead(200, { 'Content-Type': 'application/javascript' });
+    res.end(jsFile);
   }
 });
 
