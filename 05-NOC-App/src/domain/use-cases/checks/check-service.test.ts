@@ -27,7 +27,7 @@ describe('domain/use-cases/checks/check-service.ts', () => {
     expect(successCallback).toHaveBeenCalled();
     expect(errorCallback).not.toHaveBeenCalled();
 
-    expect(mockRepository.saveLog).toBeCalledWith(expect.any(LogEntity));
+    expect(mockRepository.saveLog).toHaveBeenCalledWith(expect.any(LogEntity));
   });
 
   test('should call errorCallback when fetch returns false', async () => {
@@ -37,7 +37,7 @@ describe('domain/use-cases/checks/check-service.ts', () => {
     expect(errorCallback).toHaveBeenCalled();
     expect(successCallback).not.toHaveBeenCalled();
 
-    expect(mockRepository.saveLog).toBeCalledWith(expect.any(LogEntity));
+    expect(mockRepository.saveLog).toHaveBeenCalledWith(expect.any(LogEntity));
   });
 
   test('should return an error', async () => {
