@@ -7,8 +7,12 @@ import {
 } from '../../domain';
 
 export class TodoDatasourceImpl implements TodoDatasource {
-  create(createTodoDto: CreateTodoDto): Promise<TodoEntity> {
-    throw new Error('Method not implemented.');
+  async create(createTodoDto: CreateTodoDto): Promise<TodoEntity> {
+    const todo = await prisma.todo.create({
+      data: createTodoDto!,
+    });
+
+    return TodoEntity.fromObject(todo);
   }
   async getAll(): Promise<TodoEntity[]> {
     const todos = await prisma.todo.findMany();
