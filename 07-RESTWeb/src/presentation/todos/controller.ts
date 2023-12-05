@@ -27,7 +27,7 @@ export class TodosController {
     res.status(Status.OK).json(todos);
   };
 
-  public getTodo = (req: Request, res: Response) => {
+  public getTodoById = (req: Request, res: Response) => {
     const { id } = req.params;
 
     const todo = todos.filter((todo) => todo.id === +id);
