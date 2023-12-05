@@ -1,25 +1,6 @@
 import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
 import { prisma } from '../../data/postgres';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-
-const todos = [
-  {
-    id: 1,
-    text: 'Buy Milk',
-    createdAt: new Date(),
-  },
-  {
-    id: 2,
-    text: 'Buy Milk',
-    createdAt: null,
-  },
-  {
-    id: 3,
-    text: 'Buy Milk',
-    createdAt: new Date(),
-  },
-];
 
 export class TodosController {
   //* DI
@@ -33,9 +14,6 @@ export class TodosController {
 
   public getTodoById = async (req: Request, res: Response) => {
     const id = +req.params.id;
-
-    if (isNaN(id))
-      return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
 
     const todo = await prisma.todo.findUnique({ where: { id } });
 
@@ -64,14 +42,11 @@ export class TodosController {
   public updateTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
-    if (isNaN(id))
-      return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
-
-    const { text } = req.body;
+    const { text, completedAt } = req.body;
 
     const todo = await prisma.todo.update({
       where: { id },
-      data: { text },
+      data: { text, completedAt: completedAt ? new Date(completedAt) : null },
     });
     res.status(Status.OK).json({ updatedTodo: todo });
   };

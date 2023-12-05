@@ -37,7 +37,7 @@ export class Server {
     });
 
     //* Error Handler
-    this.app.use(ErrorHandler.middleware);
+    this.app.use(ErrorHandler.init);
 
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);

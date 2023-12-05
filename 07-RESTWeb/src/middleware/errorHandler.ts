@@ -6,13 +6,13 @@ import {
 } from '@prisma/client/runtime/library';
 
 export class ErrorHandler {
-  public static middleware = (
+  public static init = (
     err: Error,
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
-    // console.log(err);
+    console.log(err);
 
     let msg, statusCode;
 
