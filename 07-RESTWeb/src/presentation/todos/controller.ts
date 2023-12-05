@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
 import { prisma } from '../../data/postgres';
-import { CreateTodoDto } from '../../domain/dtos';
+import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos';
 
 export class TodosController {
   //* DI
@@ -41,12 +41,15 @@ export class TodosController {
   public updateTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
-    const { text, completedAt } = req.body;
+    const [error, updateTodoDto] = UpdateTodoDto.create({ ...req.body, id });
+
+    if (error) throw error;
 
     const todo = await prisma.todo.update({
       where: { id },
-      data: { text, completedAt: completedAt ? new Date(completedAt) : null },
+      data: updateTodoDto!.values,
     });
+
     res.status(Status.OK).json({ updatedTodo: todo });
   };
 
