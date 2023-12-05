@@ -4,6 +4,7 @@ import { prisma } from '../../data/postgres';
 import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos';
 import {
   CreateTodo,
+  DeleteTodo,
   GetTodo,
   GetTodos,
   TodoRepository,
@@ -62,8 +63,11 @@ export class TodosController {
 
     if (isNaN(id)) throw `id:${req.params.id} must be a number`;
 
-    await this.todoRepository.deleteById(id);
-
-    res.status(Status.OK).json({ msg: `Todo with id: ${id} deleted` });
+    new DeleteTodo(this.todoRepository)
+      .execute(id)
+      .then((_) =>
+        res.status(Status.OK).json({ msg: `Todo with id: ${id} deleted` })
+      )
+      .catch((err) => res.status(Status.BAD_REQUEST).json({ err }));
   };
 }
