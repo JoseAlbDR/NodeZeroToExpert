@@ -28,9 +28,15 @@ export class TodosController {
   };
 
   public getTodoById = (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = +req.params.id;
 
-    const todo = todos.filter((todo) => todo.id === +id);
+    if (isNaN(id))
+      return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
+
+    const todo = todos.filter((todo) => todo.id === id);
+
+    if (todo.length === 0)
+      return res.status(Status.NOT_FOUND).json({ msg: 'Not found' });
 
     res.status(Status.OK).json({ todo });
   };
