@@ -2,24 +2,28 @@ import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
 import { prisma } from '../../data/postgres';
 import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos';
-import { TodoRepository } from '../../domain';
+import { GetTodo, GetTodos, TodoRepository } from '../../domain';
 
 export class TodosController {
   //* DI
   constructor(private readonly todoRepository: TodoRepository) {}
 
-  public getTodos = async (req: Request, res: Response) => {
-    const todos = await this.todoRepository.getAll();
-
-    res.status(Status.OK).json(todos);
+  public getTodos = (req: Request, res: Response) => {
+    new GetTodos(this.todoRepository)
+      .execute()
+      .then((todos) => res.status(Status.OK).json(todos))
+      .catch((err) => res.status(Status.BAD_REQUEST).json({ err }));
   };
 
-  public getTodoById = async (req: Request, res: Response) => {
+  public getTodoById = (req: Request, res: Response) => {
     const id = +req.params.id;
 
-    const todo = await this.todoRepository.getById(id);
+    if (isNaN(id)) throw `id:${req.params.id} must be a number`;
 
-    res.status(Status.OK).json({ todo });
+    new GetTodo(this.todoRepository)
+      .execute(id)
+      .then((todo) => res.status(Status.OK).json({ todo }))
+      .catch((err) => res.status(Status.BAD_REQUEST).json({ err }));
   };
 
   public createTodo = async (req: Request, res: Response) => {
