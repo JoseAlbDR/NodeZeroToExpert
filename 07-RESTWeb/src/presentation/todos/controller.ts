@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
+import { prisma } from '../../data/postgres';
 
 const todos = [
   {
@@ -43,23 +44,18 @@ export class TodosController {
     res.status(Status.OK).json({ todo });
   };
 
-  public createTodo = (req: Request, res: Response) => {
+  public createTodo = async (req: Request, res: Response) => {
     const { text } = req.body;
-
     if (!text)
       return res
         .status(Status.BAD_REQUEST)
         .json({ msg: 'Property text is required' });
 
-    const newTodo = {
-      id: todos.length + 1,
-      text,
-      createdAt: new Date(),
-    };
+    const todo = await prisma.todo.create({
+      data: { text },
+    });
 
-    todos.push(newTodo);
-
-    res.status(Status.CREATED).json(newTodo);
+    res.status(Status.CREATED).json(todo);
   };
 
   public updateTodo = (req: Request, res: Response) => {
