@@ -31,7 +31,9 @@ export class TodoDatasourceImpl implements TodoDatasource {
 
     return TodoEntity.fromObject(todo);
   }
-  deleteById(id: number): Promise<TodoEntity> {
-    throw new Error('Method not implemented.');
+  async deleteById(id: number): Promise<TodoEntity> {
+    const todo = await prisma.todo.delete({ where: { id } });
+
+    return TodoEntity.fromObject(todo);
   }
 }
