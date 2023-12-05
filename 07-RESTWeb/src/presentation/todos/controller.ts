@@ -2,7 +2,13 @@ import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
 import { prisma } from '../../data/postgres';
 import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos';
-import { CreateTodo, GetTodo, GetTodos, TodoRepository } from '../../domain';
+import {
+  CreateTodo,
+  GetTodo,
+  GetTodos,
+  TodoRepository,
+  UpdateTodo,
+} from '../../domain';
 
 export class TodosController {
   //* DI
@@ -33,8 +39,7 @@ export class TodosController {
 
     new CreateTodo(this.todoRepository)
       .execute(createTodoDto!)
-      .then((todo) => res.status(Status.CREATED).json(todo))
-      .catch((err) => res.status(Status.BAD_REQUEST).json({ err }));
+      .then((todo) => res.status(Status.CREATED).json(todo));
   };
 
   public updateTodo = async (req: Request, res: Response) => {
@@ -46,9 +51,10 @@ export class TodosController {
 
     if (error) throw error;
 
-    const todo = await this.todoRepository.updateById(updateTodoDto!);
-
-    res.status(Status.OK).json({ updatedTodo: todo });
+    new UpdateTodo(this.todoRepository)
+      .execute(updateTodoDto!)
+      .then((todo) => res.status(Status.OK).json(todo))
+      .catch((err) => res.status(Status.BAD_REQUEST).json({ err }));
   };
 
   public deleteTodo = async (req: Request, res: Response) => {
