@@ -16,4 +16,8 @@ export class Status {
   static get CREATED(): number {
     return StatusCodes.CREATED;
   }
+
+  static get INTERNAL_SERVER_ERROR(): number {
+    return StatusCodes.INTERNAL_SERVER_ERROR;
+  }
 }

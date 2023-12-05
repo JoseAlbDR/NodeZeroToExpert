@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import path from 'path';
+import { ErrorHandler } from '../middleware/errorHandler';
 
 interface Options {
   port: number;
@@ -34,6 +35,9 @@ export class Server {
     this.app.get('*', (req, res) => {
       res.sendFile(path.join(__dirname, `../../${this.publicPath}/index.html`));
     });
+
+    //* Error Handler
+    this.app.use(ErrorHandler.middleware);
 
     this.app.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);

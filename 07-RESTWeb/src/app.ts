@@ -1,3 +1,4 @@
+import 'express-async-errors';
 import { envs } from './config/envs';
 import { AppRoutes } from './presentation/routes';
 import { Server } from './presentation/server';

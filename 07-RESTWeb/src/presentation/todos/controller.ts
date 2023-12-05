@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Status } from '../../config/plugins/statusCodes';
 import { prisma } from '../../data/postgres';
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 const todos = [
   {
@@ -60,27 +61,20 @@ export class TodosController {
     res.status(Status.CREATED).json(todo);
   };
 
-  public updateTodo = (req: Request, res: Response) => {
+  public updateTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
     if (isNaN(id))
       return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
 
-    const todo = todos.find((todo) => todo.id === id);
-
-    if (!todo)
-      return res
-        .status(Status.NOT_FOUND)
-        .json({ msg: `Todo with id ${id} not found` });
+    // const todo = todos.find((todo) => todo.id === id);
 
     const { text } = req.body;
-    if (!text)
-      return res
-        .status(Status.BAD_REQUEST)
-        .json({ msg: 'Property text is required' });
 
-    todo.text = text;
-
+    const todo = await prisma.todo.update({
+      where: { id },
+      data: { text },
+    });
     res.status(Status.OK).json({ updatedTodo: todo });
   };
 
