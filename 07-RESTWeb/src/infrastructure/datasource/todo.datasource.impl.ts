@@ -21,8 +21,15 @@ export class TodoDatasourceImpl implements TodoDatasource {
 
     return TodoEntity.fromObject(todo);
   }
-  updateById(updateTodoDto: UpdateTodoDto): Promise<TodoEntity> {
-    throw new Error('Method not implemented.');
+  async updateById(updateTodoDto: UpdateTodoDto): Promise<TodoEntity> {
+    const { id } = updateTodoDto;
+
+    const todo = await prisma.todo.update({
+      where: { id },
+      data: updateTodoDto!.values,
+    });
+
+    return TodoEntity.fromObject(todo);
   }
   deleteById(id: number): Promise<TodoEntity> {
     throw new Error('Method not implemented.');
