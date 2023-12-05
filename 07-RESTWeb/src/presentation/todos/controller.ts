@@ -39,6 +39,8 @@ export class TodosController {
   public updateTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
+    if (isNaN(id)) throw `id:${req.params.id} must be a number`;
+
     const [error, updateTodoDto] = UpdateTodoDto.create({ ...req.body, id });
 
     if (error) throw error;
@@ -50,6 +52,8 @@ export class TodosController {
 
   public deleteTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
+
+    if (isNaN(id)) throw `id:${req.params.id} must be a number`;
 
     await this.todoRepository.deleteById(id);
 
