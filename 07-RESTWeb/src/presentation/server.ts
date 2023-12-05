@@ -26,7 +26,7 @@ export class Server {
     this.app.use(express.static(this.publicPath));
 
     //* Routes
-    this.app.use('/api/todos', this.routes);
+    this.app.use('/', this.routes);
 
     //* SPA
     this.app.get('*', (req, res) => {
