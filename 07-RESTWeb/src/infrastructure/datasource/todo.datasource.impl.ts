@@ -12,11 +12,14 @@ export class TodoDatasourceImpl implements TodoDatasource {
   }
   async getAll(): Promise<TodoEntity[]> {
     const todos = await prisma.todo.findMany();
-
     return todos.map((todo) => TodoEntity.fromObject(todo));
   }
-  getById(id: number): Promise<TodoEntity> {
-    throw new Error('Method not implemented.');
+  async getById(id: number): Promise<TodoEntity> {
+    const todo = await prisma.todo.findUnique({ where: { id } });
+
+    if (!todo) throw `Todo with id ${id} not found`;
+
+    return TodoEntity.fromObject(todo);
   }
   updateById(updateTodoDto: UpdateTodoDto): Promise<TodoEntity> {
     throw new Error('Method not implemented.');
