@@ -30,13 +30,13 @@ export class TodosController {
     res.status(Status.OK).json(todos);
   };
 
-  public getTodoById = (req: Request, res: Response) => {
+  public getTodoById = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
     if (isNaN(id))
       return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
 
-    const todo = todos.find((todo) => todo.id === id);
+    const todo = await prisma.todo.findUnique({ where: { id } });
 
     if (!todo)
       return res
