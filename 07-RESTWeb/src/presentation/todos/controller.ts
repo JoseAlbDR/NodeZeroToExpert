@@ -36,8 +36,29 @@ export class TodosController {
     const todo = todos.filter((todo) => todo.id === id);
 
     if (todo.length === 0)
-      return res.status(Status.NOT_FOUND).json({ msg: 'Not found' });
+      return res
+        .status(Status.NOT_FOUND)
+        .json({ msg: `Todo with id ${id} not found` });
 
     res.status(Status.OK).json({ todo });
+  };
+
+  public createTodo = (req: Request, res: Response) => {
+    const { text } = req.body;
+
+    if (!text)
+      return res
+        .status(Status.BAD_REQUEST)
+        .json({ msg: 'Property text is required' });
+
+    const newTodo = {
+      id: todos.length + 1,
+      text,
+      createdAt: new Date(),
+    };
+
+    todos.push(newTodo);
+
+    res.status(Status.CREATED).json(newTodo);
   };
 }

@@ -12,4 +12,8 @@ export class Status {
   static get BAD_REQUEST(): number {
     return StatusCodes.BAD_REQUEST;
   }
+
+  static get CREATED(): number {
+    return StatusCodes.CREATED;
+  }
 }
