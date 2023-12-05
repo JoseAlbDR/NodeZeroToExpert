@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { Status } from '../config/plugins/statusCodes';
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientValidationError,
+} from '@prisma/client/runtime/library';
 
 export class ErrorHandler {
   public static middleware = (
@@ -9,9 +12,14 @@ export class ErrorHandler {
     res: Response,
     next: NextFunction
   ) => {
-    console.log(err);
+    // console.log(err);
 
     let msg, statusCode;
+
+    if (err instanceof PrismaClientValidationError) {
+      statusCode = Status.BAD_REQUEST;
+      msg = err.message.split('\n').at(-1);
+    }
 
     if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
       statusCode = Status.NOT_FOUND;

@@ -67,8 +67,6 @@ export class TodosController {
     if (isNaN(id))
       return res.status(Status.BAD_REQUEST).json({ msg: 'Invalid id' });
 
-    // const todo = todos.find((todo) => todo.id === id);
-
     const { text } = req.body;
 
     const todo = await prisma.todo.update({
@@ -78,19 +76,11 @@ export class TodosController {
     res.status(Status.OK).json({ updatedTodo: todo });
   };
 
-  public deleteTodo = (req: Request, res: Response) => {
+  public deleteTodo = async (req: Request, res: Response) => {
     const id = +req.params.id;
 
-    const todoIndex = todos.findIndex((todo) => todo.id === id);
+    await prisma.todo.delete({ where: { id } });
 
-    if (todoIndex < 0)
-      return res
-        .status(Status.NOT_FOUND)
-        .json({ msg: `Todo with id: ${id} not found` });
-
-    const deletedTodo = todos[todoIndex];
-    todos.splice(todoIndex, 1);
-
-    res.status(Status.OK).json({ deletedTodo });
+    res.status(Status.OK).json({ msg: `Todo with id: ${id} deleted` });
   };
 }
