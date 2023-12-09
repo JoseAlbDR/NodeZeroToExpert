@@ -60,9 +60,20 @@ describe('Todo route testing', () => {
     expect(body.todo.text).toEqual(todo1.text);
     expect(body.todo.completedAt).toBeNull();
     expect(body.todo).toEqual({
-      id: expect.any(Number),
-      text: expect.any(String),
-      completedAt: null,
+      id: todo.id,
+      text: todo.text,
+      completedAt: todo.completedAt,
     });
+  });
+
+  test('should return a 404 NotFound api/v1/todos/:id', async () => {
+    const todoId = 999;
+    const { body } = await request(testServer.app)
+      .get(`/api/v1/todos/${todoId}`)
+      .expect(400);
+
+    console.log(body);
+
+    expect(body).toEqual({ err: `Todo with id ${todoId} not found` });
   });
 });
