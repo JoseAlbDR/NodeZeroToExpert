@@ -19,7 +19,6 @@ describe('Todo route testing', () => {
   const todo2 = { text: 'Hello there 2' };
 
   test('should return TODOs api/todo', async () => {
-    await prisma.todo.deleteMany();
     await prisma.todo.createMany({ data: [todo1, todo2] });
 
     const response = await request(testServer.app)
@@ -45,20 +44,22 @@ describe('Todo route testing', () => {
     // );
   });
 
-  test('should return a TODO api/todos/:id', async () => {
-    await prisma.todo.deleteMany();
-
+  test('should return a TODO api/v1/todos/:id', async () => {
     const todo1 = { text: 'Hello there 1' };
 
     const todo = await prisma.todo.create({
       data: todo1,
     });
 
-    console.log(todo);
+    const { body } = await request(testServer.app)
+      .get(`/api/v1/todos/${todo.id}`)
+      .expect(200);
 
-    expect(todo.text).toEqual('Hello there 1');
-    expect(todo.completedAt).toBeNull();
-    expect(todo).toEqual({
+    console.log(body);
+
+    expect(body.todo.text).toEqual(todo1.text);
+    expect(body.todo.completedAt).toBeNull();
+    expect(body.todo).toEqual({
       id: expect.any(Number),
       text: expect.any(String),
       completedAt: null,
