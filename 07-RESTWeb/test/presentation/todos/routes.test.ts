@@ -84,6 +84,7 @@ describe('Todo route testing', () => {
 
     expect(body).toEqual({ msg: 'text property is required' });
   });
+
   test('should return a error if text is empty api/v1/todos', async () => {
     const { body } = await request(testServer.app)
       .post(`/api/v1/todos`)
@@ -91,5 +92,41 @@ describe('Todo route testing', () => {
       .expect(400);
 
     expect(body).toEqual({ msg: 'text property is required' });
+  });
+
+  test('should return an updated TODO api/v1/todos/:id', async () => {
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/v1/todos/${todo.id}`)
+      .send({ text: 'Hola mundo UPDATE', completedAt: '2023-10-21' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: todo.id,
+      text: 'Hola mundo UPDATE',
+      completedAt: new Date('2023-10-21').toISOString(),
+    });
+  });
+
+  test('should return 404 if TODO not found', async () => {
+    const todoId = 999;
+
+    const { body } = await request(testServer.app)
+      .put(`/api/v1/todos/${todoId}`)
+      .send({})
+      .expect(400);
+
+    expect(body).toEqual({
+      err: {
+        name: 'PrismaClientKnownRequestError',
+        code: 'P2025',
+        clientVersion: expect.any(String),
+        meta: {
+          modelName: 'todo',
+          cause: 'Record to update not found.',
+        },
+      },
+    });
   });
 });
