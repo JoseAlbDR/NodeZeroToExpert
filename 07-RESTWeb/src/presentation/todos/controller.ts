@@ -25,9 +25,12 @@ export class TodosController {
 
     if (isNaN(id)) throw `id:${req.params.id} must be a number`;
 
-    const todo = await new GetTodo(this.todoRepository).execute(id);
-
-    res.status(Status.OK).json({ todo });
+    try {
+      const todo = await new GetTodo(this.todoRepository).execute(id);
+      res.status(Status.OK).json({ todo });
+    } catch (error) {
+      return res.status(Status.BAD_REQUEST).json({ error });
+    }
   };
 
   public createTodo = (req: Request, res: Response) => {

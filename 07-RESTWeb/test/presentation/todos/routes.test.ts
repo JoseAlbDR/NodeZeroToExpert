@@ -34,14 +34,6 @@ describe('Todo route testing', () => {
     expect(body[0].text).toBe(todo1.text);
     expect(body[1].text).toBe(todo2.text);
     expect(body[0].completedAt).toBeNull();
-
-    // expect(body[0]).toEqual(
-    //   expect.objectContaining({
-    //     id: expect.any(Number),
-    //     text: expect.any(String),
-    //     completedAt: expect.any(null),
-    //   })
-    // );
   });
 
   test('should return a TODO api/v1/todos/:id', async () => {
@@ -74,6 +66,6 @@ describe('Todo route testing', () => {
 
     console.log(body);
 
-    expect(body).toEqual({ err: `Todo with id ${todoId} not found` });
+    expect(body).toEqual({ error: `Todo with id ${todoId} not found` });
   });
 });

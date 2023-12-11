@@ -4,6 +4,7 @@ import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
 } from '@prisma/client/runtime/library';
+import { CustomError } from '../errors/customError';
 
 export class ErrorHandler {
   public static init = (
@@ -24,6 +25,12 @@ export class ErrorHandler {
     if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
       statusCode = Status.NOT_FOUND;
       msg = err.meta?.cause;
+    }
+
+    // Custom Error
+    if (err instanceof CustomError) {
+      statusCode = err.status;
+      msg = err.message;
     }
 
     // DTO error
