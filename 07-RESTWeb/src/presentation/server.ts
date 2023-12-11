@@ -1,5 +1,6 @@
 import express, { Router } from 'express';
 import path from 'path';
+import compression from 'compression';
 import { ErrorHandler } from '../middleware/errorHandler';
 
 interface Options {
@@ -24,6 +25,7 @@ export class Server {
     //* Middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true })); //x-www-form-urlencoded
+    this.app.use(compression());
 
     //* Public Folder
     this.app.use(express.static(this.publicPath));
