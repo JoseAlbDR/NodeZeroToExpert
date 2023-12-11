@@ -129,4 +129,34 @@ describe('Todo route testing', () => {
       },
     });
   });
+
+  test('should return an updated TODO only the date should be updated', async () => {
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/v1/todos/${todo.id}`)
+      .send({ completedAt: '2023-10-21' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: expect.any(Number),
+      text: todo.text,
+      completedAt: new Date('2023-10-21').toISOString(),
+    });
+  });
+
+  test('should return an updated TODO only the text should be updated', async () => {
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/v1/todos/${todo.id}`)
+      .send({ text: 'Updated TODO 1' })
+      .expect(200);
+
+    expect(body).toEqual({
+      id: expect.any(Number),
+      text: 'Updated TODO 1',
+      completedAt: null,
+    });
+  });
 });
