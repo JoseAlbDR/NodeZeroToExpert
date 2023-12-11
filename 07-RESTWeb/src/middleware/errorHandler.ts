@@ -4,7 +4,7 @@ import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
 } from '@prisma/client/runtime/library';
-import { CustomError } from '../errors/customError';
+import { CustomError } from '../errors/custom.error';
 
 export class ErrorHandler {
   public static init = (

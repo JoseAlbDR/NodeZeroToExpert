@@ -58,9 +58,11 @@ describe('Todo route testing', () => {
     const todoId = 999;
     const { body } = await request(testServer.app)
       .get(`/api/v1/todos/${todoId}`)
-      .expect(400);
+      .expect(404);
 
-    expect(body).toEqual({ error: `Todo with id ${todoId} not found` });
+    expect(body).toEqual(
+      expect.objectContaining({ msg: `Todo with id ${todoId} not found` })
+    );
   });
 
   test('should return a new Todo api/v1/todos', async () => {
@@ -115,19 +117,13 @@ describe('Todo route testing', () => {
     const { body } = await request(testServer.app)
       .put(`/api/v1/todos/${todoId}`)
       .send({})
-      .expect(400);
+      .expect(404);
 
-    expect(body).toEqual({
-      err: {
-        name: 'PrismaClientKnownRequestError',
-        code: 'P2025',
-        clientVersion: expect.any(String),
-        meta: {
-          modelName: 'todo',
-          cause: 'Record to update not found.',
-        },
-      },
-    });
+    expect(body).toEqual(
+      expect.objectContaining({
+        msg: `Todo with id ${todoId} not found`,
+      })
+    );
   });
 
   test('should return an updated TODO only the date should be updated', async () => {
@@ -184,15 +180,14 @@ describe('Todo route testing', () => {
 
     const { body } = await request(testServer.app)
       .delete(`/api/v1/todos/${todoId}`)
-      .expect(400);
+      .expect(404);
 
-    expect(body).toEqual({
-      err: {
-        name: 'PrismaClientKnownRequestError',
-        code: 'P2025',
-        clientVersion: '5.7.0',
-        meta: { modelName: 'todo', cause: 'Record to delete does not exist.' },
-      },
-    });
+    console.log(body);
+
+    expect(body).toEqual(
+      expect.objectContaining({
+        msg: `Todo with id ${todoId} not found`,
+      })
+    );
   });
 });
