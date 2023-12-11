@@ -22,6 +22,7 @@ export class ErrorHandler {
       statusCode = Status.BAD_REQUEST;
       msg = err.message.split('\n').at(-1);
     }
+
     if (err instanceof PrismaClientKnownRequestError && err.code === 'P2025') {
       statusCode = Status.NOT_FOUND;
       msg = err.meta?.cause;

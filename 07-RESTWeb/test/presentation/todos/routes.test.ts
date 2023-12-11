@@ -168,4 +168,31 @@ describe('Todo route testing', () => {
 
     expect(body).toEqual(todo);
   });
+
+  test('should delete a TODO api/v1/:id', async () => {
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .delete(`/api/v1/todos/${todo.id}`)
+      .expect(200);
+
+    expect(body).toEqual({ msg: `Todo with id: ${todo.id} deleted` });
+  });
+
+  test('should return a 404 if todo do not exist api/v1/:id', async () => {
+    const todoId = 999;
+
+    const { body } = await request(testServer.app)
+      .delete(`/api/v1/todos/${todoId}`)
+      .expect(400);
+
+    expect(body).toEqual({
+      err: {
+        name: 'PrismaClientKnownRequestError',
+        code: 'P2025',
+        clientVersion: '5.7.0',
+        meta: { modelName: 'todo', cause: 'Record to delete does not exist.' },
+      },
+    });
+  });
 });
