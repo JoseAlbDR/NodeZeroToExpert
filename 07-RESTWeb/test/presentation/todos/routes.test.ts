@@ -159,4 +159,13 @@ describe('Todo route testing', () => {
       completedAt: null,
     });
   });
+  test('should return status 200 if only send id', async () => {
+    const todo = await prisma.todo.create({ data: todo1 });
+
+    const { body } = await request(testServer.app)
+      .put(`/api/v1/todos/${todo.id}`)
+      .expect(200);
+
+    expect(body).toEqual(todo);
+  });
 });
