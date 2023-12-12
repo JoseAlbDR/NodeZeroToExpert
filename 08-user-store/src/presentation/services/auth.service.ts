@@ -35,26 +35,20 @@ export class AuthService {
   }
 
   public async loginUser(loginUserDto: LoginUserDto) {
+    let user;
+
     try {
-      const user = await UserModel.findOne({ email: loginUserDto.email });
-
-      if (!user)
-        throw CustomError.unauthorized(
-          `User with email ${loginUserDto.email} not found`
-        );
-
-      const checkPass = bcryptAdapter.compare(
-        loginUserDto.password,
-        user.password
-      );
-
-      if (checkPass) {
-        const { password, ...userEntity } = UserEntity.fromObject(user);
-
-        return { user: userEntity, token: 'ABC' };
-      }
+      user = await UserModel.findOne({ email: loginUserDto.email });
     } catch (error) {
       throw CustomError.internalServer(`${error}`);
     }
+
+    if (!user) throw CustomError.unauthorized(`Incorrect Email or Password`);
+
+    const isMatch = bcryptAdapter.compare(loginUserDto.password, user.password);
+    if (!isMatch) throw CustomError.unauthorized('Incorrect Email or Password');
+
+    const { password, ...userEntity } = UserEntity.fromObject(user);
+    return { user: userEntity, token: 'ABC' };
   }
 }
