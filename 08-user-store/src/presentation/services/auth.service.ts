@@ -28,4 +28,6 @@ export class AuthService {
       throw CustomError.internalServer(`${error}`);
     }
   }
+
+  public async loginUser(loginUserDto: LoginUserDto) {}
 }
