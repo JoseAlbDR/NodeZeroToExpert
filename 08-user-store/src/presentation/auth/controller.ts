@@ -20,7 +20,7 @@ export class AuthController {
 
     this.authService
       .registerUser(registerUserDto!)
-      .then((user) => res.json({ user }))
+      .then((user) => res.json(user))
       .catch((err) => this.handleError(err, res));
   };
 
