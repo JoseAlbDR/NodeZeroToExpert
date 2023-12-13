@@ -1,3 +1,5 @@
+import { CreateCategoryDto } from '../../domain/dtos/category/create.category.dto';
+
 export class CategoriesService {
   constructor() {}
 
@@ -5,7 +7,7 @@ export class CategoriesService {
     return 'Get Categories';
   }
 
-  public async createCategory() {
-    return 'Create Category';
+  public async createCategory(createCategoryDto: CreateCategoryDto) {
+    return createCategoryDto;
   }
 }
