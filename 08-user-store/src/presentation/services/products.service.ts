@@ -20,23 +20,19 @@ export class ProductsService {
         ProductModel.find()
           .skip((page - 1) * limit)
           .limit(limit)
-          .populate({ path: 'user' })
+          .populate({ path: 'user', select: 'name email' })
           .populate({ path: 'category' }),
       ]);
 
       const maxPages = Math.ceil(total / limit);
 
-      console.log({ products });
-
       const productEntities = products.map((product) => {
-        const user = UserEntity.fromObject(product.user);
-        const { password, emailValidated, ...userNoPass } = user;
         return ProductEntity.fromObject({
           name: product.name,
           price: product.price,
-          id: product._id,
+          id: product.id,
           description: product.description,
-          user: userNoPass,
+          user: product.user,
           category: CategoryEntity.fromObject(product.category),
         });
       });
