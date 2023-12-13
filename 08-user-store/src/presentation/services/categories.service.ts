@@ -11,7 +11,9 @@ export class CategoriesService {
     const { limit, page } = paginationDto;
 
     try {
-      const categories = await CategoryModel.find().limit(limit).skip(page);
+      const categories = await CategoryModel.find()
+        .skip((page - 1) * limit)
+        .limit(limit);
 
       const categoryEntities = categories.map((category) =>
         CategoryEntity.fromObject(category)
