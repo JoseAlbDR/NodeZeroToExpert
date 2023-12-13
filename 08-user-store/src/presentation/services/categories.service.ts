@@ -1,5 +1,5 @@
 import { CategoryModel } from '../../data';
-import { CustomError, UserEntity } from '../../domain';
+import { CustomError, PaginationDto, UserEntity } from '../../domain';
 import { CreateCategoryDto } from '../../domain/dtos/category/create.category.dto';
 import { CategoryEntity } from '../../domain/entities/category.entity';
 import path from 'path';
@@ -7,9 +7,11 @@ import path from 'path';
 export class CategoriesService {
   constructor() {}
 
-  public async getCategories() {
+  public async getCategories(paginationDto: PaginationDto) {
+    const { limit, page } = paginationDto;
+
     try {
-      const categories = await CategoryModel.find();
+      const categories = await CategoryModel.find().limit(limit).skip(page);
 
       const categoryEntities = categories.map((category) =>
         CategoryEntity.fromObject(category)
