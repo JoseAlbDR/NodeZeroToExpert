@@ -9,12 +9,13 @@ export class CategoriesService {
 
   public async getCategories() {
     try {
-      const categories = await CategoryModel.find().populate({
-        path: 'user',
-        select: 'name email role',
-      });
+      const categories = await CategoryModel.find();
 
-      return categories;
+      const categoryEntities = categories.map((category) =>
+        CategoryEntity.fromObject(category)
+      );
+
+      return categoryEntities;
     } catch (error) {
       throw error;
     }
