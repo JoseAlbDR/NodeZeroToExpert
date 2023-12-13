@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { bcryptAdapter } from '../../../config';
 
 const CategorySchema = new mongoose.Schema({
   name: {
