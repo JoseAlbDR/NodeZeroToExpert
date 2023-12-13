@@ -21,7 +21,7 @@ export class AuthService {
       const user = new UserModel(registerUserDto);
 
       // Encrypt password
-      user.password = bcryptAdapter.hash(registerUserDto.password);
+      user.password = UserModel.hashPassword(registerUserDto.password);
       await user.save();
 
       // JWT
@@ -52,7 +52,7 @@ export class AuthService {
 
     if (!user) throw CustomError.unauthorized(`Incorrect Email or Password`);
 
-    const isMatch = bcryptAdapter.compare(loginUserDto.password, user.password);
+    const isMatch = user.comparePassword(loginUserDto.password);
     if (!isMatch) throw CustomError.unauthorized('Incorrect Email or Password');
 
     const { password, ...userEntity } = UserEntity.fromObject(user);
