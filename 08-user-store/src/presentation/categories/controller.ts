@@ -30,8 +30,8 @@ export class CategoriesController {
     if (error) return res.status(400).json({ error });
 
     this.categoriesService
-      .createCategory(createCategoryDto!)
-      .then((category) => res.status(201).json({ category }))
+      .createCategory(createCategoryDto!, req.body.user)
+      .then((category) => res.status(201).json(category))
       .catch((error) => this.handleError(error, res));
   };
 

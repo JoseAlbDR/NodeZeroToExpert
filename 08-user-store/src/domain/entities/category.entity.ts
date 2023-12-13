@@ -6,7 +6,7 @@ export class CategoryEntity {
     public readonly id: string,
     public readonly name: string,
     public readonly available: boolean,
-    public readonly user: UserEntity
+    public readonly user: string
   ) {}
 
   static fromObject(obj: { [key: string]: any }) {
@@ -18,8 +18,6 @@ export class CategoryEntity {
     if (typeof available !== 'boolean')
       throw CustomError.badRequest('Available must be boolean');
     if (!user) throw CustomError.badRequest('User is required');
-    if (!(user instanceof UserEntity))
-      throw CustomError.badRequest('User must be an instance of UserEntity');
 
     return new CategoryEntity(_id || id, name, available, user);
   }
