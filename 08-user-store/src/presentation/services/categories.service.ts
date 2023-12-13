@@ -17,7 +17,8 @@ export class CategoriesService {
 
       return categoryEntities;
     } catch (error) {
-      throw error;
+      console.log(error);
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 
@@ -40,7 +41,8 @@ export class CategoriesService {
       const categoryEntity = CategoryEntity.fromObject(category);
       return categoryEntity;
     } catch (error) {
-      throw CustomError.internalServer(`${error}`);
+      console.log(error);
+      throw CustomError.internalServer('Internal Server Error');
     }
   }
 }
