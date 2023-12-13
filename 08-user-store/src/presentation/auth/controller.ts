@@ -25,7 +25,7 @@ export class AuthController {
       .catch((err) => this.handleError(err, res));
   };
 
-  loginUser = async (req: Request, res: Response) => {
+  loginUser = (req: Request, res: Response) => {
     const [error, loginUserDto] = LoginUserDto.create(req.body);
 
     if (error) return res.status(400).json({ error });
@@ -36,7 +36,7 @@ export class AuthController {
       .catch((err) => this.handleError(err, res));
   };
 
-  validateEmail = async (req: Request, res: Response) => {
+  validateEmail = (req: Request, res: Response) => {
     const { token } = req.params;
     this.authService
       .validateEmail(token)
