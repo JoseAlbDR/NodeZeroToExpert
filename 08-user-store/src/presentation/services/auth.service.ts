@@ -24,11 +24,15 @@ export class AuthService {
       await user.save();
       // JWT
 
+      const token = await JwtAdapter.generateToken({
+        id: user.id,
+        email: user.email,
+      });
       // Confirmation email
 
       const { password, ...userEntity } = UserEntity.fromObject(user);
 
-      return { user: userEntity, token: 'ABC' };
+      return { user: userEntity, token };
     } catch (error) {
       throw CustomError.internalServer(`${error}`);
     }
