@@ -32,7 +32,7 @@ export class CategoriesService {
       return {
         currentPage: page,
         maxPages,
-        limit: limit,
+        limit,
         total,
         next:
           page + 1 <= maxPages

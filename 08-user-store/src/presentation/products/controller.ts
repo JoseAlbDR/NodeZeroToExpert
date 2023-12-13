@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { CustomError } from '../../domain';
+import { CustomError, PaginationDto } from '../../domain';
 import { ProductsService } from '../services';
 
 export class ProductsController {
@@ -14,8 +14,14 @@ export class ProductsController {
   };
 
   getProducts = (req: Request, res: Response) => {
+    const { page = 1, limit = 10 } = req.query;
+
+    const [error, paginationDto] = PaginationDto.create(+page, +limit);
+
+    if (error) return this.handleError(CustomError.badRequest(error), res);
+
     this.productsService
-      .getProducts()
+      .getProducts(paginationDto!)
       .then((products) => res.json(products))
       .catch((err) => this.handleError(err, res));
   };

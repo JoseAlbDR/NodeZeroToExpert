@@ -8,8 +8,8 @@ export class ProductEntity {
     public readonly name: string,
     public readonly available: boolean,
     public readonly price: number,
-    public readonly user: UserEntity,
-    public readonly category: CategoryEntity,
+    public readonly user: string,
+    public readonly category: string,
     public readonly description?: string
   ) {}
 
@@ -25,16 +25,12 @@ export class ProductEntity {
     if (typeof price !== 'number')
       throw CustomError.badRequest('Price must be a number');
     if (!user) throw CustomError.badRequest('Missing user');
-    if (!(user instanceof UserEntity))
-      throw CustomError.badRequest('User must be a UserEntity');
     if (!category) throw CustomError.badRequest('Missing category');
-    if (!(category instanceof CategoryEntity))
-      throw CustomError.badRequest('Category must be a CategoryEntity');
 
     return new ProductEntity(
       _id || id,
       name,
-      available || true,
+      available,
       price,
       user,
       category,
