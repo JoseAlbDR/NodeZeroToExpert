@@ -29,6 +29,7 @@ export class AuthService {
         id: user.id,
         email: user.email,
       });
+
       // Confirmation email
       await this.sendEmailValidationLink(user.email);
 
@@ -92,4 +93,6 @@ export class AuthService {
 
     return true;
   };
+
+  public validateEmail = async (token: string) => {};
 }
