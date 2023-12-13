@@ -21,7 +21,7 @@ export class JwtAdapter {
       jwt.verify(token, JWT_SEED, (err, decoded) => {
         if (err) resolve(null);
 
-        return decoded;
+        resolve(decoded);
       });
     });
   };
