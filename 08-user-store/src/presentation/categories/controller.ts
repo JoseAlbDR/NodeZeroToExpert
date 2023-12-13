@@ -15,7 +15,17 @@ export class CategoriesController {
   };
 
   createCategory = (req: Request, res: Response) => {
-    const [error, createCategoryDto] = CreateCategoryDto.create(req.body);
+    const {
+      name,
+      available,
+      user: { id: userId },
+    } = req.body;
+
+    const [error, createCategoryDto] = CreateCategoryDto.create({
+      name,
+      available,
+      user: userId,
+    });
 
     if (error) return res.status(400).json({ error });
 

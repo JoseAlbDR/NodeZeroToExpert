@@ -16,8 +16,8 @@ export class AuthMiddleware {
     try {
       const payload = await JwtAdapter.validateToken<{ id: string }>(token);
       if (!payload) return res.status(401).json({ error: 'Invalid token' });
-      const user = await UserModel.findById(payload.id);
 
+      const user = await UserModel.findById(payload.id);
       if (!user) return res.status(401).json({ error: 'Invalid token - user' });
       if (!user.emailValidated)
         return res.status(401).json({ error: 'Please validate your email' });

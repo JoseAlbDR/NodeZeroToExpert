@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { CategoriesController } from './controller';
 import { CategoriesService } from '../services';
+import { AuthMiddleware } from '../middlewares/auth.middleware';
 
 export class CategoriesRoutes {
   static get routes(): Router {
@@ -10,7 +11,11 @@ export class CategoriesRoutes {
     const categoriesController = new CategoriesController(categoriesService);
 
     router.get('/', categoriesController.getCategories);
-    router.post('/', categoriesController.createCategory);
+    router.post(
+      '/',
+      [AuthMiddleware.validateJWT],
+      categoriesController.createCategory
+    );
 
     return router;
   }
