@@ -1,4 +1,4 @@
-import { regularExps } from '../../../config';
+import { Validators, regularExps } from '../../../config';
 import { UserEntity } from '../../entities/user.entity';
 
 export class CreateCategoryDto {
@@ -18,7 +18,7 @@ export class CreateCategoryDto {
     if (typeof available !== 'boolean') {
       availableBoolean = available === 'true';
     }
-    if (!regularExps.mongoId.test(user)) return ['User is not a valid mongoId'];
+    if (!Validators.isMongoID(user)) return ['User is not a valid mongoId'];
 
     return [undefined, new CreateCategoryDto(name, availableBoolean, user)];
   }

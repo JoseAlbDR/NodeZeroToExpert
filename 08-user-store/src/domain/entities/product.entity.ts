@@ -8,8 +8,8 @@ export class ProductEntity {
     public readonly name: string,
     public readonly available: boolean,
     public readonly price: number,
-    public readonly user: string,
-    public readonly category: string,
+    public readonly user: UserEntity,
+    public readonly category: CategoryEntity,
     public readonly description?: string
   ) {}
 

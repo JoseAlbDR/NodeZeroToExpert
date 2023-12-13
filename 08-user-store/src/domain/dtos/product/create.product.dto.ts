@@ -1,6 +1,4 @@
-import { regularExps } from '../../../config';
-import { CategoryEntity } from '../../entities/category.entity';
-import { UserEntity } from '../../entities/user.entity';
+import { Validators, regularExps } from '../../../config';
 
 export class CreateProductDto {
   private constructor(
@@ -30,10 +28,10 @@ export class CreateProductDto {
     }
 
     if (!user) return ['Missing user'];
-    if (!regularExps.mongoId.test(user)) return ['User is not a valid mongoId'];
+    if (!Validators.isMongoID(user)) return ['User is not a valid mongoId'];
 
     if (!category) return ['Missing category'];
-    if (!regularExps.mongoId.test(category))
+    if (!Validators.isMongoID(category))
       return ['Category is not a valid mongoId'];
 
     if (!price) return ['Missing price'];
@@ -45,9 +43,9 @@ export class CreateProductDto {
       new CreateProductDto(
         name,
         availableBoolean,
-        user,
         price,
         description,
+        user,
         category
       ),
     ];
