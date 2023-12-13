@@ -11,7 +11,7 @@ export class CategoriesService {
     try {
       const categories = await CategoryModel.find().populate({
         path: 'user',
-        select: 'name email',
+        select: 'name email role',
       });
 
       return categories;
