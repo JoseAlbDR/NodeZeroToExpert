@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { LoginUserDto } from '../../domain/dtos/auth/login.user.dto';
 
 export class AuthController {
-  constructor(public readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   private handleError = (error: unknown, res: Response) => {
     if (error instanceof CustomError)
