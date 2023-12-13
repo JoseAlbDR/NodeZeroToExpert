@@ -26,9 +26,11 @@ export class ProductsService {
 
       const maxPages = Math.ceil(total / limit);
 
+      console.log({ products });
+
       const productEntities = products.map((product) => {
         const user = UserEntity.fromObject(product.user);
-        const { password, ...userNoPass } = user;
+        const { password, emailValidated, ...userNoPass } = user;
         return ProductEntity.fromObject({
           name: product.name,
           price: product.price,
@@ -55,6 +57,7 @@ export class ProductsService {
         products: productEntities,
       };
     } catch (error) {
+      if (error instanceof CustomError) throw error;
       console.log(error);
       throw CustomError.internalServer('Internal Server Error');
     }
@@ -74,6 +77,7 @@ export class ProductsService {
 
       return productEntity;
     } catch (error) {
+      if (error instanceof CustomError) throw error;
       console.log(error);
       throw CustomError.internalServer('Internal Server Error');
     }
