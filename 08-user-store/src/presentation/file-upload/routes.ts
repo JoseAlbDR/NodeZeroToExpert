@@ -13,12 +13,32 @@ export class FileUploadRoutes {
 
     router.post(
       '/single/:type',
-      [FileUploadMiddleware.containFiles, FileUploadMiddleware.validateType],
+      [
+        FileUploadMiddleware.containFiles,
+        FileUploadMiddleware.validateType(['users', 'products', 'categories']),
+        FileUploadMiddleware.validateExtension([
+          'png',
+          'jpg',
+          'jpeg',
+          'gif',
+          'webp',
+        ]),
+      ],
       fileUploadController.uploadFile
     );
     router.post(
       '/multiple/:type',
-      [FileUploadMiddleware.containFiles, FileUploadMiddleware.validateType],
+      [
+        FileUploadMiddleware.containFiles,
+        FileUploadMiddleware.validateType(['users', 'products', 'categories']),
+        FileUploadMiddleware.validateExtension([
+          'png',
+          'jpg',
+          'jpeg',
+          'gif',
+          'webp',
+        ]),
+      ],
       fileUploadController.uploadMultipleFiles
     );
 
