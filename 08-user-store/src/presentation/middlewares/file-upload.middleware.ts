@@ -15,7 +15,7 @@ export class FileUploadMiddleware {
 
   static validateType(validTypes: string[]) {
     return (req: Request, res: Response, next: NextFunction) => {
-      const { type } = req.params;
+      const type = req.url.split('/').at(-1) ?? '';
 
       if (!validTypes.includes(type))
         return res.status(400).json({

@@ -8,14 +8,17 @@ export class FileUploadRoutes {
   static get routes(): Router {
     const router = Router();
 
-    const fileUploadServce = new FileUploadService();
-    const fileUploadController = new FileUploadController(fileUploadServce);
+    const fileUploadService = new FileUploadService();
+    const fileUploadController = new FileUploadController(fileUploadService);
+
+    router.use([
+      FileUploadMiddleware.containFiles,
+      FileUploadMiddleware.validateType(['users', 'products', 'categories']),
+    ]);
 
     router.post(
       '/single/:type',
       [
-        FileUploadMiddleware.containFiles,
-        FileUploadMiddleware.validateType(['users', 'products', 'categories']),
         FileUploadMiddleware.validateExtension([
           'png',
           'jpg',
@@ -29,8 +32,6 @@ export class FileUploadRoutes {
     router.post(
       '/multiple/:type',
       [
-        FileUploadMiddleware.containFiles,
-        FileUploadMiddleware.validateType(['users', 'products', 'categories']),
         FileUploadMiddleware.validateExtension([
           'png',
           'jpg',
