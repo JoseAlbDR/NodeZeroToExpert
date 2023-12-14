@@ -14,34 +14,17 @@ export class FileUploadRoutes {
     router.use([
       FileUploadMiddleware.containFiles,
       FileUploadMiddleware.validateType(['users', 'products', 'categories']),
+      FileUploadMiddleware.validateExtension([
+        'png',
+        'jpg',
+        'jpeg',
+        'gif',
+        'webp',
+      ]),
     ]);
 
-    router.post(
-      '/single/:type',
-      [
-        FileUploadMiddleware.validateExtension([
-          'png',
-          'jpg',
-          'jpeg',
-          'gif',
-          'webp',
-        ]),
-      ],
-      fileUploadController.uploadFile
-    );
-    router.post(
-      '/multiple/:type',
-      [
-        FileUploadMiddleware.validateExtension([
-          'png',
-          'jpg',
-          'jpeg',
-          'gif',
-          'webp',
-        ]),
-      ],
-      fileUploadController.uploadMultipleFiles
-    );
+    router.post('/single/:type', fileUploadController.uploadFile);
+    router.post('/multiple/:type', fileUploadController.uploadMultipleFiles);
 
     return router;
   }
