@@ -8,6 +8,7 @@ import { GithubController } from './presentation/github/controller';
 
 function main() {
   const app = express();
+  app.use(express.json());
 
   const githubController = new GithubController();
 
