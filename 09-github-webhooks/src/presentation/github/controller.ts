@@ -4,7 +4,10 @@ export class GithubController {
   constructor() {}
 
   webhookHandler = (req: Request, res: Response) => {
-    console.log('Endpoint called');
-    res.json('W0la');
+    const payload = req.body;
+
+    console.log(payload);
+
+    res.status(202).send('Accepted');
   };
 }
