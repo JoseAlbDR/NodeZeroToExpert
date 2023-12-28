@@ -11,6 +11,8 @@ export class GithubSha256Middleware {
 
     const xHubSignature = req.header('x-hub-signature-256') ?? '';
 
+    if (!xHubSignature) return false;
+
     let trusted = Buffer.from(`sha256=${signature}`, 'ascii');
     let untrusted = Buffer.from(xHubSignature, 'ascii');
     return crypto.timingSafeEqual(trusted, untrusted);
