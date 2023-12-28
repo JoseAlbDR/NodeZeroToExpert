@@ -6,7 +6,7 @@ export class GithubController {
 
   webhookHandler = (req: Request, res: Response) => {
     const githubEvent = req.header('x-github-event') ?? 'unknown';
-    const signature = req.header('x-hub-signature-256') ?? 'unknown';
+    // const signature = req.header('x-hub-signature-256') ?? 'unknown';
     const payload = req.body;
     let message: string = '';
 
@@ -14,7 +14,9 @@ export class GithubController {
       case 'star':
         message = this.githubService.onStar(payload);
         break;
-
+      case 'issues':
+        message = this.githubService.onIssue(payload);
+        break;
       default:
         console.log('Unknown event: ' + githubEvent);
     }
