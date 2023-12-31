@@ -13,9 +13,13 @@ wss.on('connection', function connection(ws) {
 
   ws.send('Hello there from server');
 
-  setInterval(() => {
-    ws.send('Hello there again');
-  }, 2000);
+  // setInterval(() => {
+  //   ws.send('Hello there again');
+  // }, 2000);
+
+  ws.on('message', (data, isBinary) => {
+    console.log('received: %s', data);
+  });
 
   ws.on('close', () => {
     console.log('Client disconnected');
