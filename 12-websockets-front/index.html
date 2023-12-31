@@ -37,7 +37,8 @@
       };
 
       socket.onmessage = ({ data }) => {
-        console.log(data);
+        const payload = JSON.parse(data);
+        console.log(payload);
       };
 
       socket.onclose = (event) => {
