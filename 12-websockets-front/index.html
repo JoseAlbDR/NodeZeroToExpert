@@ -18,9 +18,26 @@
     <script>
       const socket = new WebSocket('ws://localhost:3000');
 
+      const form = document.querySelector('form');
+      const input = document.querySelector('input');
+
+      const sendMessage = (message, socket) => {
+        socket.send(message);
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const message = input.value;
+        sendMessage(message, socket);
+      });
+
       socket.onopen = (event) => {
         console.log(event);
         console.log('Connected');
+      };
+
+      socket.onmessage = ({ data }) => {
+        console.log(data);
       };
 
       socket.onclose = (event) => {
