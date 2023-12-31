@@ -9,10 +9,14 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     console.log('received: %s', data);
-    ws.send(data.toString().toUpperCase());
+    const payload = {
+      type: 'custom-message',
+      payload: data.toString(),
+    };
+    ws.send(JSON.stringify(payload));
   });
 
-  ws.send('Hello there from server');
+  // ws.send('Hello there from server');
 
   // setInterval(() => {
   //   ws.send('Hello there again');
