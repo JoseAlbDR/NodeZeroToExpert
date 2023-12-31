@@ -21,14 +21,14 @@
       const form = document.querySelector('form');
       const input = document.querySelector('input');
 
-      const sendMessage = (message, socket) => {
+      const sendMessage = (message) => {
         socket.send(message);
       };
 
       form.addEventListener('submit', (event) => {
         event.preventDefault();
         const message = input.value;
-        sendMessage(message, socket);
+        sendMessage(message);
       });
 
       socket.onopen = (event) => {
