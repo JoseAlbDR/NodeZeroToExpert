@@ -9,6 +9,7 @@ wss.on('connection', function connection(ws) {
 
   ws.on('message', function message(data) {
     console.log('received: %s', data);
+    ws.send(data.toString().toUpperCase());
   });
 
   ws.send('Hello there from server');
