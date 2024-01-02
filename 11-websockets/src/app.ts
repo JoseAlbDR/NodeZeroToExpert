@@ -13,8 +13,16 @@ wss.on('connection', function connection(ws) {
       payload: data.toString(),
     };
 
+    // //* Everyone
+    // wss.clients.forEach(function each(client) {
+    //   if (client.readyState === WebSocket.OPEN) {
+    //     client.send(JSON.stringify(payload));
+    //   }
+    // });
+
+    //* Everyone except for the sender
     wss.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
+      if (ws !== client && client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(payload));
       }
     });
