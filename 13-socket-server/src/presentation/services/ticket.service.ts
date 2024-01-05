@@ -57,7 +57,7 @@ export class TicketService {
     return this.workingOnTickets.slice(0, 4);
   }
 
-  public lastTicketNumber() {
+  public get lastTicketNumber() {
     return this.tickets.length > 0 ? this.tickets.at(-1)!.number : 0;
   }
 
