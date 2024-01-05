@@ -14,6 +14,12 @@ function connectToWebSockets() {
 
   socket.onmessage = (event) => {
     console.log(event.data); // on-ticket-count-changed
+
+    const data = JSON.parse(event.data);
+
+    console.log(data);
+
+    pendingLbl.innerHTML = data.payload;
   };
 
   socket.onclose = (event) => {
