@@ -17,12 +17,12 @@ export class TicketController {
   };
 
   public createTicket = async (req: Request, res: Response) => {
-    const ticket = this.ticketService.createTicket();
-    res.json({ ticket });
+    res.status(201).json({ ticket: this.ticketService.createTicket() });
   };
 
   public drawTicket = async (req: Request, res: Response) => {
-    res.json('drawTicket');
+    const { desk } = req.params;
+    res.json({ ticket: this.ticketService.drawTicket(desk) });
   };
 
   public ticketFinished = async (req: Request, res: Response) => {
