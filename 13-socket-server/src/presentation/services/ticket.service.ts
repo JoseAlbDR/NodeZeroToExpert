@@ -77,7 +77,7 @@ export class TicketService {
 
     this.tickets.push(ticket);
 
-    // this.wssService.emit();
+    this.onTicketNumberChanged();
 
     return ticket;
   }
@@ -110,5 +110,9 @@ export class TicketService {
     });
 
     return { status: 'ok' };
+  }
+
+  private onTicketNumberChanged() {
+    this.wssService.emit('on-ticket-count-changed', this.pendingTickets.length);
   }
 }
