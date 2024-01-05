@@ -46,4 +46,8 @@ export class TicketService {
       (ticket) => !ticket.handleAtDesk && !ticket.done
     );
   }
+
+  public lastTicketNumber() {
+    return this.tickets.length > 0 ? this.tickets.at(-1) : 0;
+  }
 }
