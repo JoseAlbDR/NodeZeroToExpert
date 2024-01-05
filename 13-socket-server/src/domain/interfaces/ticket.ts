@@ -5,5 +5,5 @@ export interface Ticket {
   handleAtDesk?: string;
   handleAt?: Date;
   done: boolean;
-  doneAt: Date;
+  doneAt?: Date;
 }
