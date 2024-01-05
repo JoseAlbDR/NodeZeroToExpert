@@ -13,7 +13,7 @@ export class TicketController {
   };
 
   public pendingTickets = async (req: Request, res: Response) => {
-    res.json('pendingTickets');
+    res.json({ tickets: this.ticketService.pendingTickets });
   };
 
   public createTicket = async (req: Request, res: Response) => {
