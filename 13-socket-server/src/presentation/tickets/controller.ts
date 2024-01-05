@@ -32,6 +32,6 @@ export class TicketController {
   };
 
   public workingOn = async (req: Request, res: Response) => {
-    res.json('workingOn');
+    res.json({ ticket: this.ticketService.lastWorkingOnTickets });
   };
 }
