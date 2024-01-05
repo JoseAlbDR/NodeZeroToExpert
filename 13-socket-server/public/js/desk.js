@@ -3,16 +3,37 @@ console.log('Escritorio HTML');
 const pendingLbl = document.querySelector('#lbl-pending');
 const header = document.querySelector('h1');
 const noMoreAlert = document.querySelector('.alert');
+const nextButton = document.querySelector('#next-btn');
+const finishButton = document.querySelector('#finish-btn');
+const currentTicketLbl = document.querySelector('small');
 
 const params = new URLSearchParams(window.location.search);
 
-if (params.has('escritorio')) {
-  const desk = params.get('escritorio');
-  header.innerText = desk;
-} else {
+if (!params.has('escritorio')) {
   window.location = 'index.html';
   throw new Error('Desk required');
 }
+const desk = params.get('escritorio');
+
+console.log({ desk });
+let currentTicket = null;
+
+header.innerText = desk;
+
+const handleNextTicket = async () => {
+  const response = await fetch(`/api/v1/ticket/draw/${desk}`);
+  const { ticket } = await response.json();
+
+  if (ticket.status === 'error') {
+    currentTicketLbl.innerText = ticket.message;
+    return;
+  }
+
+  console.log(ticket);
+
+  currentTicket = ticket;
+  currentTicketLbl.innerText = ticket.ticket.number;
+};
 
 const checkTicketCount = (ticketCount = 0) => {
   if (ticketCount === 0) {
@@ -54,6 +75,8 @@ function connectToWebSockets() {
     console.log('Connected');
   };
 }
+
+nextButton.addEventListener('click', handleNextTicket);
 
 connectToWebSockets();
 loadInitialCount();
