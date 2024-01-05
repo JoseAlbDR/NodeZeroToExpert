@@ -77,4 +77,21 @@ export class TicketService {
 
     return { status: 'ok', ticket };
   }
+
+  public onFinishedTicket(id: string) {
+    const ticket = this.tickets.find((t) => t.id === id);
+
+    if (!ticket) return { status: 'error', message: 'Ticket not found' };
+
+    this.tickets.map((t) => {
+      if (t.id === id) {
+        ticket.done = true;
+        ticket.doneAt = new Date();
+      }
+
+      return ticket;
+    });
+
+    return { status: 'ok' };
+  }
 }
