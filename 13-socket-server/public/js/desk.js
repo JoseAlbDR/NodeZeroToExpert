@@ -13,13 +13,10 @@ function connectToWebSockets() {
   const socket = new WebSocket('ws://localhost:3000/ws');
 
   socket.onmessage = (event) => {
-    console.log(event.data); // on-ticket-count-changed
-
     const data = JSON.parse(event.data);
 
-    console.log(data);
-
-    pendingLbl.innerHTML = data.payload;
+    if (data.event === 'on-ticket-count-changed')
+      pendingLbl.innerHTML = data.payload;
   };
 
   socket.onclose = (event) => {
