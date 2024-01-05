@@ -1,7 +1,10 @@
 import { UuidAdapter } from '../../config/uuidAdapter';
 import { Ticket } from '../../domain/interfaces/ticket';
+import { WssService } from './wss.service';
 
 export class TicketService {
+  constructor(private readonly wssService = WssService.instance) {}
+
   private readonly tickets: Ticket[] = [
     {
       id: UuidAdapter.v4(),
@@ -73,6 +76,8 @@ export class TicketService {
     };
 
     this.tickets.push(ticket);
+
+    // this.wssService.emit();
 
     return ticket;
   }

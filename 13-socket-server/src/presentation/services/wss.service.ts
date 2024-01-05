@@ -27,6 +27,14 @@ export class WssService {
     WssService._instance = new WssService(options);
   }
 
+  public emit(event: string, payload: Object) {
+    this.wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify({ event, payload }));
+      }
+    });
+  }
+
   public start() {
     this.wss.on('connection', (ws: WebSocket) => {
       console.log('Client connected');

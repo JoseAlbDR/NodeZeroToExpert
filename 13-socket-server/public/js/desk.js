@@ -13,7 +13,7 @@ function connectToWebSockets() {
   const socket = new WebSocket('ws://localhost:3000/ws');
 
   socket.onmessage = (event) => {
-    console.log(event.data);
+    console.log(event.data); // on-ticket-count-changed
   };
 
   socket.onclose = (event) => {
