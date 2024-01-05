@@ -66,4 +66,15 @@ export class TicketService {
 
     return ticket;
   }
+
+  public drawTicket(desk: string) {
+    const ticket = this.tickets.find((t) => !t.handleAtDesk);
+
+    if (!ticket) return { status: 'error', message: 'No pending tickets' };
+
+    ticket.handleAtDesk = desk;
+    ticket.handleAt = new Date();
+
+    return { status: 'ok', ticket };
+  }
 }
