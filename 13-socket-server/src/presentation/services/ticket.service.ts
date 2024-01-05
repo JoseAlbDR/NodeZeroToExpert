@@ -41,10 +41,16 @@ export class TicketService {
     },
   ];
 
+  private readonly workingOnTickets: Ticket[] = [];
+
   public get pendingTickets(): Ticket[] {
     return this.tickets.filter(
       (ticket) => !ticket.handleAtDesk && !ticket.done
     );
+  }
+
+  public get lastWorkingOnTickets(): Ticket[] {
+    return this.workingOnTickets.slice(0, 4);
   }
 
   public lastTicketNumber() {
@@ -74,6 +80,8 @@ export class TicketService {
 
     ticket.handleAtDesk = desk;
     ticket.handleAt = new Date();
+
+    this.workingOnTickets.unshift({ ...ticket });
 
     return { status: 'ok', ticket };
   }
