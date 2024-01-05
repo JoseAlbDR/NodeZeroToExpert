@@ -1,6 +1,10 @@
 console.log('Escritorio HTML');
 
 const pendingLbl = document.querySelector('#lbl-pending');
+const header = document.querySelector('h1');
+const params = new URLSearchParams(window.location.search);
+const desk = params.get('escritorio');
+header.innerText = desk;
 
 const loadInitialCount = async () => {
   const response = await fetch('/api/v1/ticket/pending');
