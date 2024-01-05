@@ -1,9 +1,7 @@
 const button = document.querySelector('button');
 const lastTicket = document.querySelector('span');
 
-button.addEventListener('click', () => {
-  createTicket();
-});
+button.addEventListener('click', createTicket);
 
 const getLastTicket = async () => {
   const response = await fetch('http://localhost:3000/api/v1/ticket/last');
