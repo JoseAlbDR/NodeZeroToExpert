@@ -5,7 +5,7 @@ export class TicketController {
   constructor(private readonly ticketService: TicketService) {}
 
   public getTickets = async (req: Request, res: Response) => {
-    res.json('getTickets');
+    res.json({ tickets: this.ticketService.allTickets });
   };
 
   public getLastTicketNumber = async (req: Request, res: Response) => {

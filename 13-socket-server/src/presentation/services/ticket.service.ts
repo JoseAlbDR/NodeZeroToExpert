@@ -43,6 +43,10 @@ export class TicketService {
 
   private readonly workingOnTickets: Ticket[] = [];
 
+  public get allTickets(): Ticket[] {
+    return this.tickets;
+  }
+
   public get pendingTickets(): Ticket[] {
     return this.tickets.filter(
       (ticket) => !ticket.handleAtDesk && !ticket.done
