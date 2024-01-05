@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
+import { TicketService } from '../services/ticket.service';
 
 export class TicketController {
-  constructor() {}
+  constructor(private readonly ticketService: TicketService) {}
 
   public getTickets = async (req: Request, res: Response) => {
     res.json('getTickets');
