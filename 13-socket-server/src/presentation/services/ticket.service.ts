@@ -64,7 +64,7 @@ export class TicketService {
   public createTicket(): Ticket {
     const ticket: Ticket = {
       id: UuidAdapter.v4(),
-      number: this.lastTicketNumber(),
+      number: this.lastTicketNumber() + 1,
       createdAt: new Date(),
       done: false,
       handleAtDesk: undefined,
