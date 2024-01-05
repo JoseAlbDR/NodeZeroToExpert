@@ -50,4 +50,17 @@ export class TicketService {
   public lastTicketNumber() {
     return this.tickets.length > 0 ? this.tickets.at(-1) : 0;
   }
+
+  public createTicket(): Ticket {
+    const number = this.tickets.at(-1)!.number + 1;
+
+    const ticket = {
+      id: UuidAdapter.v4(),
+      number,
+      createdAt: new Date(),
+      done: false,
+    };
+
+    return ticket;
+  }
 }
