@@ -3,7 +3,6 @@ import path from 'path';
 
 interface Options {
   port: number;
-  routes: Router;
   public_path?: string;
 }
 
@@ -14,7 +13,7 @@ export class Server {
   private readonly publicPath: string;
 
   constructor(options: Options) {
-    const { port, routes, public_path = 'public' } = options;
+    const { port, public_path = 'public' } = options;
     this.port = port;
     this.publicPath = public_path;
     this.configure();
