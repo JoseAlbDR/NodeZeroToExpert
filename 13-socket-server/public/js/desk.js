@@ -29,8 +29,6 @@ const handleNextTicket = async () => {
     return;
   }
 
-  console.log(ticket);
-
   currentTicket = ticket;
   currentTicketLbl.innerText = ticket.ticket.number;
 };

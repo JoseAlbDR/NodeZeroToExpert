@@ -83,8 +83,6 @@ export class TicketService {
   }
 
   public drawTicket(desk: string) {
-    console.log({ desk });
-
     const ticket = this.tickets.find((t) => !t.handleAtDesk);
 
     if (!ticket) return { status: 'error', message: 'No pending tickets' };
@@ -93,6 +91,7 @@ export class TicketService {
     ticket.handleAt = new Date();
 
     this.workingOnTickets.unshift({ ...ticket });
+    this.onTicketNumberChanged();
 
     return { status: 'ok', ticket };
   }
