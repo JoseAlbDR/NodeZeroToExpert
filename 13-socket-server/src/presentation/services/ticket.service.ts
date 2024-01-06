@@ -5,7 +5,7 @@ import { WssService } from './wss.service';
 export class TicketService {
   constructor(private readonly wssService = WssService.instance) {}
 
-  private readonly tickets: Ticket[] = [
+  private tickets: Ticket[] = [
     {
       id: UuidAdapter.v4(),
       number: 1,
