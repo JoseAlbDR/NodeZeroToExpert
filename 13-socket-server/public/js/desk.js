@@ -15,10 +15,22 @@ if (!params.has('escritorio')) {
 }
 const desk = params.get('escritorio');
 
-console.log({ desk });
 let currentTicket = null;
 
 header.innerText = desk;
+
+const finishTicket = async () => {
+  if (!currentTicket) return;
+
+  const response = await fetch(
+    `/api/v1/ticket/done/${currentTicket.ticket.id}`,
+    {
+      method: 'PUT',
+    }
+  );
+
+  await response.json();
+};
 
 const handleNextTicket = async () => {
   const response = await fetch(`/api/v1/ticket/draw/${desk}`);
@@ -75,6 +87,7 @@ function connectToWebSockets() {
 }
 
 nextButton.addEventListener('click', handleNextTicket);
+finishButton.addEventListener('click', finishTicket);
 
 connectToWebSockets();
 loadInitialCount();
