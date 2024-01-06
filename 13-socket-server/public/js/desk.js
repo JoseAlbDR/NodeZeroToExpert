@@ -29,7 +29,12 @@ const finishTicket = async () => {
     }
   );
 
-  await response.json();
+  const { status, message } = await response.json();
+
+  if (status === 'ok') {
+    currentTicket = null;
+    currentTicketLbl.innerText = 'Naiden';
+  }
 };
 
 const handleNextTicket = async () => {
