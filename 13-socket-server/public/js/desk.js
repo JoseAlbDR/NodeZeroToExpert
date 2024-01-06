@@ -38,6 +38,8 @@ const finishTicket = async () => {
 };
 
 const handleNextTicket = async () => {
+  await finishTicket();
+
   const response = await fetch(`/api/v1/ticket/draw/${desk}`);
   const { ticket } = await response.json();
 
